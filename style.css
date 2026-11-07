@@ -19,18 +19,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 0px;
+}
+
+input.pass-enabled {
+    margin-right: 0px !important;
 }
 
 .recast-pass-header .fa-grip-vertical {
     cursor: grab;
-    color: #888;
-    margin-right: 10px;
+    color: var(--SmartThemeBorderColor);
+    margin-right: 0px !important;
 }
 
 .recast-pass-header .pass-name {
     flex-grow: 1;
     margin: 0 10px;
+    font-size: 12px;
 }
 
 .recast-pass-details label {
@@ -43,8 +48,9 @@
 .recast-pass-details input[type="text"],
 .recast-pass-details input[type="number"],
 .recast-pass-details textarea {
-    width: 100%;
+    width: 50%;
     margin-top: 5px;
+    font-size: 12px;
 }
 
 /* ===== Diff Viewer ===== */
@@ -89,7 +95,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 20px;
+    padding: 10px 12px;
     border-bottom: 1px solid var(--SmartThemeBorderColor, #444);
     background: rgba(0, 0, 0, 0.25);
     flex-shrink: 0;
@@ -242,14 +248,14 @@
 }
 
 .rc-diff-btn {
-    padding: 8px 36px !important;
+    padding: 5px 10px !important;
     font-size: 0.92em !important;
     font-weight: 600 !important;
     letter-spacing: 0.04em;
     display: inline-flex !important;
     align-items: center;
     gap: 8px;
-    min-width: 130px;
+    min-width: fit-content;
     justify-content: center;
     border-radius: 7px !important;
     transition: filter 0.15s, transform 0.1s !important;
@@ -400,7 +406,7 @@ ins.rc-ins {
         left: 2.5vw;
         transform: none !important;
         width: 95vw;
-        height: 95vh;
+        height: 85vh;
         max-width: none;
         animation: rc-fade-in 0.22s ease;
     }
@@ -476,8 +482,8 @@ ins.rc-ins {
 .rc-pe-header {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 14px 20px;
+    gap: 6px;
+    padding: 9px 20px;
     border-bottom: 1px solid var(--SmartThemeBorderColor, #444);
     background: rgba(0, 0, 0, 0.25);
     flex-shrink: 0;
@@ -572,7 +578,7 @@ ins.rc-ins {
 #rc_pe_details_slot .pass-prompt {
     min-height: 38vh;
     resize: vertical;
-    line-height: 1.5;
+    line-height: 1.2;
 }
 
 #rc_pe_details_slot .pass-prefill {
@@ -591,7 +597,7 @@ ins.rc-ins {
 }
 
 .rc-pe-btn {
-    padding: 8px 36px !important;
+    padding: 5px 10px !important;
     font-size: 0.92em !important;
     font-weight: 600 !important;
     letter-spacing: 0.04em;
@@ -599,7 +605,7 @@ ins.rc-ins {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    min-width: 130px;
+    min-width: fit-content;
     border-radius: 7px !important;
     transition: filter 0.15s, transform 0.1s !important;
 }
@@ -626,7 +632,7 @@ ins.rc-ins {
         left: 2.5vw;
         transform: none !important;
         width: 95vw;
-        height: 95vh;
+        height: 85vh;
         animation: rc-fade-in 0.22s ease;
     }
 
@@ -642,7 +648,7 @@ ins.rc-ins {
     #rc_pe_details_slot textarea,
     #rc_pe_details_slot select,
     #rc_pe_name_slot .pass-name {
-        font-size: 16px;
+        font-size: 13px;
     }
 }
 
