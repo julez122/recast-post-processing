@@ -421,7 +421,7 @@ export function initDiffViewer() {
     });
 
     // Step navigation — dot clicks (delegated since dots are dynamic)
-    $(document).on("click", "#recast_diff_dots .rc-diff-dot", function () {
+    $('#recast_diff_dots').off('click.recastDiff').on('click.recastDiff', '.rc-diff-dot', function () {
         if (_steps) renderStep(parseInt($(this).data("step"), 10));
     });
 }

@@ -6,3 +6,5 @@
 *.txt
 /.tests
 /package.json
+/validation
+

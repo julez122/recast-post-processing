@@ -15,11 +15,12 @@
     margin-bottom: 5px;
 }
 
+/* Keep pass identity flexible while actions stay at the upper right. */
 .recast-pass-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 0px;
+    align-items: flex-start;
+    gap: 6px;
 }
 
 input.pass-enabled {
@@ -32,10 +33,79 @@ input.pass-enabled {
     margin-right: 0px !important;
 }
 
-.recast-pass-header .pass-name {
-    flex-grow: 1;
-    margin: 0 10px;
+/* Give the name a stable available area independent of its fitted field width. */
+.rc-pass-identity {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+/* Reserve the name column without stretching the textarea itself. */
+.rc-pass-name-slot {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Align the drag grip with the first line of the name. */
+.rc-pass-identity .rc-pass-drag {
+    flex: none;
+    margin-top: 6px;
+    opacity: 0.5;
+}
+
+/* Keep the enable checkbox compact and aligned with the first name line. */
+.rc-pass-identity .pass-enabled {
+    flex: none;
+    margin-top: 5px;
+}
+
+/* Wrap names within their measured width; JavaScript supplies both dimensions. */
+.rc-pass-name {
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+    max-width: 100%;
+    margin: 0;
+    padding: 4px 6px;
     font-size: 12px;
+    line-height: 1.35;
+    resize: none;
+    overflow: hidden;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    field-sizing: fixed;
+}
+
+/* Three stable action columns leave Copy directly beneath the chevron. */
+.rc-pass-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 24px);
+    gap: 4px;
+    flex: none;
+    align-items: start;
+}
+
+/* Match the existing compact icon controls without inheriting wide button sizes. */
+.rc-pass-actions .menu_button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    min-width: 0;
+    min-height: 0;
+    padding: 3px;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1;
+}
+
+/* Explicit placement keeps the transfer icon below Toggle Details. */
+.rc-pass-actions .pass-transfer {
+    grid-column: 1;
+    grid-row: 2;
 }
 
 .recast-pass-details label {
@@ -411,14 +481,15 @@ ins.rc-ins {
         animation: rc-fade-in 0.22s ease;
     }
 
+    /* Let the manager fit its contents while retaining a visible footer. */
     #recast_preset_manager_modal {
-        top: 26.25vh !important;
-        left: 4vw !important;
-        transform: none !important;
+        top: 50dvh !important;
+        left: 50vw !important;
+        transform: translate(-50%, -50%) !important;
         width: 92vw !important;
-        height: 47.5vh !important;
-        max-height: none !important;
-        max-width: none !important;
+        height: auto !important;
+        max-height: 85vh !important;
+        max-width: 460px !important;
         animation: rc-fade-in 0.22s ease;
     }
 
@@ -511,7 +582,6 @@ ins.rc-ins {
 
 /* Name input is parked here live from the pass row */
 #rc_pe_name_slot .pass-name {
-    width: 100%;
     margin: 0;
     font-weight: 600;
 }
@@ -693,18 +763,21 @@ ins.rc-ins {
     animation: rc-slide-up 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Keep the manager header proportional to its compact controls. */
 .rc-pm-header {
-    padding: 14px 20px;
+    padding: 10px 14px;
     flex-shrink: 0;
 }
 
+/* The list scrolls within the body while toolbar and footer remain reachable. */
 .rc-pm-body {
     flex: 1;
-    overflow-y: auto;
-    padding: 16px 20px 20px;
+    min-height: 0;
+    overflow: hidden;
+    padding: 12px 14px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 /* Give icon+text buttons in the modal proper spacing */
@@ -712,10 +785,470 @@ ins.rc-ins {
     gap: 6px;
 }
 
+/* Constrain long collections instead of scrolling away the manager actions. */
 .rc-pm-list {
     display: flex;
     flex-direction: column;
     gap: 7px;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+/* Keep preset creation controls fitted and beside one another. */
+.rc-pm-toolbar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+/* Keep import/export visible below the scrolling preset list. */
+.rc-pm-footer {
+    display: flex;
+    flex: none;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 14px;
+    border-top: 1px solid var(--SmartThemeBorderColor);
+    margin: auto;
+}
+
+/* Use compact, content-sized buttons in both manager action rows. */
+.rc-pm-toolbar .menu_button,
+.rc-pm-footer .menu_button {
+    width: auto;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 4px 8px;
+    font-size: 12px;
+    gap: 6px;
+    font-family: 'Noto Sans';
+    font-weight: normal;
+}
+
+/* Prevent the icon from being displayed as question mark due to missing font */
+button#recast_pm_restore:before {
+    font-family: 'Font Awesome 6 Free';
+    font-size: 10px !important;
+}
+
+/* Native dialogs use the current theme and fit the available viewport. */
+dialog.rc-tools-dialog {
+    box-sizing: border-box;
+    min-height: 0;
+    width: min(460px, 92vw);
+    max-width: 94vw;
+    max-height: 88dvh;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+/* Desktop conflict comparisons need room for two readable prompt columns. */
+dialog.rc-import-dialog {
+    width: min(1000px, 94vw);
+}
+
+/* Contain long review content within the native popup's scroll area. */
+.rc-tools-dialog .popup-content {
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+/* Allow the native popup body to shrink below its contents within the height cap. */
+.rc-tools-dialog .popup-body {
+    min-height: 0;
+}
+
+/* Space dialog sections without extra decorative containers. */
+.rc-tools-root {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 0;
+    text-align: left;
+}
+
+/* Leave space for the native close button beside the compact title. */
+.rc-tools-title {
+    margin: 0 24px 0 0;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+/* Keep explanatory text compact and wrap unusually long names. */
+.rc-tools-description {
+    margin: 0;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+/* Keep reviewed actions together as the dialog body scrolls. */
+.rc-tools-footer {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 8px 0 0;
+    background: var(--SmartThemeBlurTintColor);
+    z-index: 1;
+}
+
+/* Override native theme button growth only inside the new dialogs. */
+.rc-tools-root .menu_button {
+    width: auto;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+/* Errors remain readable without reserving empty space when no error exists. */
+.rc-tools-error {
+    margin: 0;
+    color: var(--SmartThemeBodyColor);
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+/* Empty status paragraphs should not add gaps or blank rows. */
+.rc-tools-error:empty,
+.rc-import-replacements:empty,
+.rc-import-preview:empty {
+    display: none;
+}
+
+/* Show destination presets in their saved order with contained scrolling. */
+.rc-transfer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-height: 45dvh;
+    overflow-y: auto;
+}
+
+/* Make each destination row selectable without widening its checkbox. */
+.rc-transfer-preset-row {
+    display: flex;
+    gap: 7px;
+    align-items: flex-start;
+    padding: 6px 8px;
+    border: 1px solid var(--SmartThemeBorderColor);
+    border-radius: 5px;
+}
+
+/* Keep the checkbox at its native compact size. */
+.rc-transfer-preset-check {
+    flex: none;
+    margin: 2px 0 0;
+}
+
+/* Preset names wrap while the current-preset indicator remains distinct. */
+.rc-transfer-preset-name {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Identify the disabled source without a second interactive control. */
+.rc-transfer-current {
+    flex: none;
+    font-size: 10px;
+    opacity: 0.7;
+}
+
+/* Keep the all-toggle fitted to its caption. */
+.rc-transfer-select-all {
+    align-self: flex-start;
+}
+
+/* Explain Move's effect in compact secondary text. */
+.rc-transfer-move-note {
+    font-size: 11px;
+    opacity: 0.8;
+    overflow-wrap: anywhere;
+}
+
+/* Keep import decisions in a compact, scrollable list. */
+.rc-import-preset-list {
+    max-height: 27dvh;
+    overflow-y: auto;
+}
+
+/* Reserve fixed action space without squeezing preview names into it. */
+.rc-import-preset-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--SmartThemeBorderColor);
+}
+
+/* Long preset names wrap rather than overflowing action selectors. */
+.rc-import-preset-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Conflict labels are subordinate to the preset name. */
+.rc-import-conflict-tag {
+    display: block;
+    font-size: 10px;
+    opacity: 0.75;
+}
+
+/* Keep conflict choices fitted to their option text. */
+.rc-import-action {
+    width: auto;
+    max-width: 125px;
+    min-width: 0;
+    margin: 0;
+    padding: 4px 6px;
+    font-size: 12px;
+}
+
+/* Separate the comparison from decisions without adding another card. */
+.rc-import-preview {
+    min-width: 0;
+    /* border-top: 1px solid var(--SmartThemeBorderColor); */
+    padding-top: 6px;
+}
+
+/* Use modest headings for comparison and mapping sections. */
+.rc-import-preview-title,
+.rc-import-preview-side-title,
+.rc-import-connections-title {
+    margin: 5px 0 8px;
+    font-size: 14px !important;
+    overflow-wrap: anywhere;
+    font-family: 'Noto Sans' !important;
+    letter-spacing: normal !important;
+}
+
+/* Desktop comparisons keep each preset in its own equally sized column. */
+.rc-import-preview-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+/* Prevent pass content from stretching either comparison column. */
+.rc-import-preview-side {
+    min-width: 0;
+}
+
+/* Mobile tabs are unnecessary when both desktop columns are visible. */
+.rc-import-preview-tabs {
+    display: none;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+/* Clearly mark the active mobile comparison tab. */
+.rc-import-preview-tab[aria-pressed="true"] {
+    border-color: var(--SmartThemeBodyColor);
+}
+
+/* Keep each pass expandable in its original order. */
+.rc-import-preview-pass {
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--SmartThemeBorderColor);
+    padding-bottom: 5px;
+}
+
+/* Make pass headings selectable and readable even with long names. */
+.rc-import-preview-pass-name {
+    cursor: pointer;
+    overflow-wrap: anywhere;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Put secondary configuration behind its own disclosure after the full prompts. */
+.rc-import-preview-options {
+    margin: 6px 0;
+}
+
+/* Keep the secondary settings disclosure distinct and compact. */
+.rc-import-preview-options-title {
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    opacity: 0.8;
+    margin-bottom: 6px;
+    margin-top: 10px;
+}
+
+/* Present pass configuration as compact label/value pairs. */
+.rc-import-preview-settings {
+    display: grid;
+    grid-template-columns: minmax(0, 105px) minmax(0, 1fr);
+    gap: 3px 8px;
+    margin: 7px 0;
+}
+
+/* Subdue configuration labels without reducing prompt readability. */
+.rc-import-preview-setting-label {
+    font-size: 10px;
+    opacity: 0.75;
+}
+
+/* IDs and connection names must wrap within the comparison column. */
+.rc-import-preview-setting-value {
+    margin: 0;
+    min-width: 0;
+    font-size: 10px;
+    overflow-wrap: anywhere;
+}
+
+/* Distinguish literal prompt and prefill previews from metadata. */
+.rc-import-preview-prompt-label,
+.rc-import-preview-prefill-label {
+    margin: 6px 0 4px;
+    font-size: 11px;
+}
+
+/* Preserve full raw prompt text with wrapping and its own scroll area. */
+.rc-import-preview-prompt,
+.rc-import-preview-prefill {
+    max-height: 260px;
+    overflow: auto;
+    margin: 0 0 6px;
+    padding: 6px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-family: inherit;
+    font-size: 11px;
+    line-height: 1.4;
+    border: 1px solid var(--SmartThemeBorderColor);
+    border-radius: 5px;
+}
+
+/* Empty-preset previews remain secondary information. */
+.rc-import-preview-empty {
+    font-size: 11px;
+    margin: 0 0 6px;
+    opacity: 1;
+}
+
+/* Keep connection mapping distinct from prompt comparisons. */
+.rc-import-connections {
+    padding-top: 6px;
+    /* border-top: 1px solid var(--SmartThemeBorderColor); */
+}
+
+/* Explain mapping once above the individual profile choices. */
+.rc-import-connections-description {
+    display: block;
+    font-size: 9px;
+    margin-bottom: 15px;
+}
+
+/* Preserve a horizontal mapping row whenever the viewport permits it. */
+.rc-import-connection-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+}
+
+/* Missing profile labels may wrap without widening the popup. */
+.rc-import-connection-name {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Cap connection pickers while preserving their content-based size. */
+.rc-import-connection-select {
+    flex: 0 1 auto;
+    width: auto;
+    max-width: 60%;
+    min-width: 0;
+    margin: 0;
+    padding: 4px 6px;
+    font-size: 12px;
+}
+
+/* State precisely how many presets the final Import action will change. */
+.rc-import-summary {
+    margin: 0;
+    font-size: 11px;
+    text-align: center;
+}
+
+/* Make replacement names visible before the user commits the import. */
+.rc-import-replacements {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+@media (orientation: portrait),
+(max-width: 600px) {
+
+    /* Preserve Julia's 85vh mobile safety limit for all new native dialogs. */
+    dialog.rc-tools-dialog {
+        max-height: 85vh;
+    }
+}
+
+@media (max-width: 600px) {
+
+    /* Give the editor title and Close their own first row on narrow screens. */
+    .rc-pe-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+        gap: 6px 8px;
+        padding: 9px 12px;
+    }
+
+    /* Keep the editor title compact and allow wrapping on very narrow screens. */
+    .rc-pe-title {
+        grid-row: 1;
+        grid-column: 1;
+        font-size: 14px;
+        white-space: normal;
+    }
+
+    /* Anchor Close beside the title instead of beside the pass name. */
+    #rc_pe_close {
+        grid-row: 1;
+        grid-column: 2;
+        padding: 3px 6px;
+    }
+
+    /* The slot owns a second row; its measured field remains content-sized. */
+    #rc_pe_name_slot {
+        grid-row: 2;
+        grid-column: 1 / -1;
+        min-width: 0;
+    }
+
+    /* Show readable comparison tabs instead of squeezing two prompt columns. */
+    .rc-import-preview-tabs {
+        display: flex;
+    }
+
+    /* Let the selected preset comparison occupy the available narrow space. */
+    .rc-import-preview-columns {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* Hide only the inactive preview on mobile, retaining both on desktop. */
+    .rc-import-preview-side[data-preview-active="false"] {
+        display: none;
+    }
 }
 
 /* ===== Preset Manager Modal Items ===== */
@@ -726,7 +1259,7 @@ ins.rc-ins {
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--SmartThemeBorderColor, #555);
     border-radius: 7px;
-    padding: 10px 12px;
+    padding: 5px 12px;
     gap: 10px;
     transition: background 0.15s, border-color 0.15s;
 }
@@ -738,13 +1271,13 @@ ins.rc-ins {
 
 .rc-pm-drag {
     cursor: grab;
-    color: #666;
+    color: var(--SmartThemeBorderColor);
     flex-shrink: 0;
     transition: color 0.15s;
 }
 
 .rc-pm-item:hover .rc-pm-drag {
-    color: #999;
+   color: var(--SmartThemeBodyColor);
 }
 
 .rc-pm-name {

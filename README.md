@@ -1,12 +1,19 @@
 # Recast | SillyTavern Prose Post-Processing
 
+This is my personal fork of [closuretxt's Recast extension](https://github.com/closuretxt/recast-post-processing) with various new features and fixes. 
+
+## Fork Changelog
+
+- Various CSS fixes to prevent clipped modals, buttons and other input fields.
+- Version 1.87 adds pass Move/Copy, preset import/export with conflict previews and connection mapping, fitted wrapping pass names, a mobile editor header, and modal fixes.
+
 ## 🚀 Installation
 
 1. Open SillyTavern, go to the Extensions menu (boxes icon).
 2. Click "Install Extension" at the top right.
 3. Paste this URL and click 'Install for me':
 ```plaintext
-https://github.com/closuretxt/recast-post-processing
+https://github.com/julez122/recast-post-processing
 ```
 
 ## About ST Post-Processing
@@ -49,6 +56,9 @@ Essentially, this picks up a response, processes it through each pass in your pi
   - Auto-run on generation or trigger manually.
   - Skip diff view and hide original message for seamless use.
 - **Preset System:** Save, load, and manage different pipeline configurations. Drag and drop passes to reorder them.
+- **Move/Copy Passes:** The copy icon beneath the pass chevron opens a preset picker. Copy appends the complete pass to every selected preset; Move also removes it from the source. The source preset remains available even when empty.
+- **Preset Import/Export:** Manage Presets has Import and Export footer buttons. Export downloads all presets in one JSON file. Import includes per-conflict decisions, full prompt/prefill previews, and explicit mapping for unavailable connection profiles.
+- **Readable Pass Names:** Short names use fitted fields; longer names wrap and grow vertically without moving the icon controls. On narrow screens, Advanced Preset View puts the pass name below its title and close button.
 - **Macro Support:** Allows the injection of macros inside the post-processing prompts, allowing other extensions & information to be used in specific passes. Recast also exposes `{{recast_latest}}` and `{{recast_<pass_id>}}` macros for advanced workflows.
 - **Slash Commands:** Expand utility through support commands and ST-scripts, customizing pass usage and trigger conditions.
 - **Simple Direct Design:** We kept everything compact and direct, with advanced options being optional.
@@ -66,6 +76,18 @@ Essentially, this picks up a response, processes it through each pass in your pi
 
 *The settings are per-pass and are available by clicking on the arrow:*
 ![Extension UI](https://raw.githubusercontent.com/closuretxt/closure-imgdump/refs/heads/main/pass%20settings2.png)
+
+### Preset backups and transfers
+
+Pass edits already save automatically through SillyTavern. Presets live in `extension_settings.Recast.presets` inside your user's `settings.json`, independently of the installed extension folder. The fork retains the same `Recast` namespace, so reinstalling it preserves your existing presets.
+
+Open **Manage Presets → Export** to immediately download every preset, in its current order, with complete pass settings and literal prompts/macros. JSON format 1 identifies itself with `format: "recast-presets"` and `version: 1`; it contains a `presets` array and `connectionProfiles` display metadata (`id` and `name` only). Global Recast preferences, the active preset selection, connection definitions, API keys, and chat history are not part of this export.
+
+Choose **Import** and select a Recast JSON export. Review the incoming presets before committing. New names default to Import; conflicting names require **Keep existing**, **Replace**, or **Keep both**. Keep both adds a uniquely suffixed copy. **Preview** shows the existing and incoming pass lists, complete prompt/prefill text, and configuration. Desktop shows both sides; narrow screens have Existing/Incoming tabs. The final summary lists any presets being replaced. Cancel or Escape discards the review.
+
+If a referenced connection-profile ID is unavailable locally, explicitly select a local profile or **Same as Current** for it. One selection applies to every imported pass referencing that profile. Matching display names do not automatically map profiles. Connection credentials must be configured separately in SillyTavern.
+
+The icon-only **Move/Copy to…** control opens a multi-preset picker. The source is labelled Current preset and cannot be selected. Transfers append after the destination's existing passes. IDs remain the same when available; a destination collision allocates a new ID and adjusts exact self-references in the copied prompt/prefill. Other pass references stay literal. Imported presets retain their valid pass IDs and macro references.
 
 ### Recommended Workflow
 - **Chat Completion** - This extension requires at least one Chat Completion endpoint, but we recommend at least two.
@@ -120,7 +142,7 @@ AGPL-3.0 LICENSE || Copyright (C) 2026 closuretxt || Please read LICENSE for mor
 - Expand Prompts View (AKA Advanced Setup Screen)
 - Addition Type Pass (For Trackers, HTML injection, Image Gen, etc)
 - Text Completion Support
-- Exporting and Importing Recast Presets
+- ~~Exporting and Importing Recast Presets~~ (This fork version 1.87)
 - Character Locking Presets
 - Advanced Prompt Control, prefills and role management Options, trigger cooldowns
 - Conditional Pass Triggers based on ST-script (Can be done with QR right now)

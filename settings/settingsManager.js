@@ -41,13 +41,13 @@ export function initSettingsListeners() {
 export async function loadSettings() {
     extension_settings[extensionName] = extension_settings[extensionName] || {};
     if (Object.keys(extension_settings[extensionName]).length === 0) {
-        Object.assign(extension_settings[extensionName], defaultSettings);
+        Object.assign(extension_settings[extensionName], JSON.parse(JSON.stringify(defaultSettings)));
     }
 
     // Fill in defaults for settings added after the user's first load
     for (const [key, value] of Object.entries(defaultSettings)) {
         if (!(key in extension_settings[extensionName])) {
-            extension_settings[extensionName][key] = value;
+            extension_settings[extensionName][key] = JSON.parse(JSON.stringify(value));
         }
     }
 

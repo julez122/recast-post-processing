@@ -11,7 +11,7 @@ import { loadSettings, saveSettings, defaultSettings, initSettingsListeners } fr
 export { loadSettings, saveSettings, defaultSettings };
 
 // Self Util
-import { showDiffModal, initDiffViewer, updateRecastData, storeRecastData, injectReopenDiffButton, updateReopenDiffButtons, reopenDiffForMessage } from "./util/diffViewer.js";
+import { showDiffModal, hideDiffModal, initDiffViewer, updateRecastData, storeRecastData, injectReopenDiffButton, updateReopenDiffButtons, reopenDiffForMessage } from "./util/diffViewer.js";
 import { regexContextMessages } from "./util/contextRegex.js";
 import { swapProfile } from "./util/profileSwapper.js";
 import { presetManager } from "./ui/presetManager.js";
@@ -19,6 +19,9 @@ import { presetManager } from "./ui/presetManager.js";
 import { initCompatibilityListeners, shouldSkipStreamIntercept, shouldIgnoreMessageReceived } from "./util/compatibility.js";
 // UI
 import { pipelineBar } from "./ui/pipelineBar.js";
+import { bindPassName, initPassNameLayout, schedulePassNameLayout } from "./ui/passNames.js";
+import { initRecastModalEvents } from "./ui/modalEvents.js";
+import { clonePresetData, newPassId } from "./settings/presetTools.js";
 // Slash Commands
 import { initSlashCommands } from "./util/slashCommands.js";
 
@@ -432,6 +435,10 @@ function populateConnectionDropdown(selectElement, currentValue) {
         });
     }
 
+    // Retain unavailable profile references instead of silently erasing them on save.
+    if (currentValue && !selectElement.find('option').toArray().some(option => option.value === currentValue)) {
+        selectElement.append($('<option></option>').val(currentValue).text(`Missing profile: ${currentValue}`));
+    }
     // Attempt to select the value if it exists
     if (currentValue) {
         selectElement.val(currentValue);
@@ -460,10 +467,11 @@ function openPassEditor(item) {
     modal.data("host-pass-id", item.data("id"));
 
     $("#recast_pass_editor_backdrop").fadeIn(200);
-    modal.fadeIn(220);
+    modal.fadeIn(220, schedulePassNameLayout);
+    schedulePassNameLayout();
 }
 
-function closePassEditor() {
+function closePassEditor(persist = true) {
     if (!passEditorItem) return;
 
     const modal = $("#recast_pass_editor_modal");
@@ -472,7 +480,7 @@ function closePassEditor() {
     const options = $("#rc_pe_options_slot").children().detach().hide();
 
     // Restore parked fields to their original spots in the pass row
-    passEditorItem.find(".recast-pass-header").children().first().append(nameInput);
+    passEditorItem.find(".rc-pass-name-slot").append(nameInput);
     passEditorItem.find(".pass-expand").parent().append(options);
     passEditorItem.append(details);
     modal.removeData("host-pass-id");
@@ -480,14 +488,15 @@ function closePassEditor() {
 
     modal.fadeOut(200);
     $("#recast_pass_editor_backdrop").fadeOut(180);
-    saveSettings();
+    schedulePassNameLayout();
+    if (persist) saveSettings();
 }
 
 // PASS Setup
 function addPassToUI(pass = null) {
     if (!pass) {
         pass = {
-            id: "pass_" + Date.now(),
+            id: newPassId(),
             name: "New Pass",
             enabled: true,
             contextLength: 3,
@@ -506,7 +515,10 @@ function addPassToUI(pass = null) {
     const item = $(clone).find(".recast-pass-item");
     
     item.data("id", pass.id);
+    item.attr('data-pass-id', pass.id);
+    item.data("pass-data", clonePresetData(pass));
     item.find(".pass-name").val(pass.name);
+    bindPassName(item.find('.pass-name')[0]);
     item.find(".pass-enabled").prop("checked", pass.enabled);
     item.find(".pass-context-length").val(pass.contextLength);
     item.find(".pass-prompt").val(pass.prompt);
@@ -526,6 +538,11 @@ function addPassToUI(pass = null) {
         openPassEditor(item);
     });
 
+    item.find('.pass-transfer').on('click', event => {
+        event.stopPropagation();
+        presetManager.openPassTransfer(item.data('id'));
+    });
+
     item.find(".pass-remove").on("click", function() {
         // Close the editor first so its parked fields return before the row is removed
         if (isPassEditorOpen(item)) closePassEditor();
@@ -541,6 +558,7 @@ function addPassToUI(pass = null) {
     item.find("input, select, textarea").on("change input", saveSettings);
     
     $("#recast_pass_list").append(item);
+    schedulePassNameLayout();
 }
 
 
@@ -1198,8 +1216,9 @@ jQuery(async () => {
     // Append the rest to extensions settings
     $("#extensions_settings").append(tempDiv.children());
 
-    presetManager.init(addPassToUI, saveSettings, refreshRecastMacros);
+    presetManager.init(addPassToUI, saveSettings, refreshRecastMacros, closePassEditor);
     loadSettings();
+    initPassNameLayout();
     initSettingsListeners();
     refreshRecastMacros();
     initDiffViewer();
@@ -1246,10 +1265,10 @@ jQuery(async () => {
         e.stopPropagation();
     });
 
-    $(document).on("keydown", (e) => {
-        if (e.key === "Escape" && $("#recast_pass_editor_modal").is(":visible")) {
-            closePassEditor();
-        }
+    initRecastModalEvents(getST(), {
+        recast_pass_editor_modal: closePassEditor,
+        recast_preset_manager_modal: () => presetManager.closeManagerModal(),
+        recast_diff_modal: () => hideDiffModal(true),
     });
 
     // BUTTON cool button stuff
