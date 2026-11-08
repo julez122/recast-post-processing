@@ -153,7 +153,7 @@ input.pass-enabled {
     background: var(--SmartThemeBlurTintColor, #1a1a2e);
     border: 1px solid var(--SmartThemeBorderColor, #444);
     border-radius: 12px;
-    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255,255,255,0.04);
+    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.04);
     z-index: 20000;
     display: flex;
     flex-direction: column;
@@ -542,7 +542,7 @@ ins.rc-ins {
     background: var(--SmartThemeBlurTintColor, #1a1a2e);
     border: 1px solid var(--SmartThemeBorderColor, #444);
     border-radius: 12px;
-    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255,255,255,0.04);
+    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.04);
     z-index: 20000;
     display: flex;
     flex-direction: column;
@@ -723,13 +723,25 @@ ins.rc-ins {
 }
 
 @keyframes rc-fade-in {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes rc-slide-up {
-    from { opacity: 0; transform: translate(-50%, calc(-50% + 18px)); }
-    to   { opacity: 1; transform: translate(-50%, -50%); }
+    from {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + 18px));
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }
 
 /* ===== Preset Manager Modal ===== */
@@ -740,8 +752,15 @@ ins.rc-ins {
 }
 
 @keyframes rc-slide-down {
-    from { opacity: 1; transform: translate(-50%, -50%); }
-    to   { opacity: 0; transform: translate(-50%, calc(-50% + 16px)); }
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + 16px));
+    }
 }
 
 #recast_preset_manager_modal {
@@ -756,7 +775,7 @@ ins.rc-ins {
     background: var(--SmartThemeBlurTintColor, #1a1a2e);
     border: 1px solid var(--SmartThemeBorderColor, #444);
     border-radius: 12px;
-    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255,255,255,0.04);
+    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.04);
     z-index: 20000;
     flex-direction: column;
     overflow: hidden;
@@ -1277,7 +1296,7 @@ dialog.rc-import-dialog {
 }
 
 .rc-pm-item:hover .rc-pm-drag {
-   color: var(--SmartThemeBodyColor);
+    color: var(--SmartThemeBodyColor);
 }
 
 .rc-pm-name {
@@ -1335,21 +1354,24 @@ dialog.rc-import-dialog {
 #recast_progress_fill {
     height: 100%;
     border-radius: 4px;
-    background: linear-gradient(
-        90deg,
-        #4a90e2 0%,
-        #a04ae2 33%,
-        #4ae2c0 66%,
-        #4a90e2 100%
-    );
+    background: linear-gradient(90deg,
+            #4a90e2 0%,
+            #a04ae2 33%,
+            #4ae2c0 66%,
+            #4a90e2 100%);
     background-size: 200% 100%;
     transition: width 0.35s ease;
     animation: recast-gradient-shift 2.4s linear infinite;
 }
 
 @keyframes recast-gradient-shift {
-    0%   { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
 }
 
 /* ===== Input Area Processing Indicator ===== */
@@ -1367,13 +1389,11 @@ dialog.rc-import-dialog {
     left: 0;
     right: 0;
     height: 5px;
-    background: linear-gradient(
-        90deg,
-        #4a90e2 0%,
-        #a04ae2 33%,
-        #4ae2c0 66%,
-        #4a90e2 100%
-    );
+    background: linear-gradient(90deg,
+            #4a90e2 0%,
+            #a04ae2 33%,
+            #4ae2c0 66%,
+            #4a90e2 100%);
     background-size: 200% 100%;
     border-radius: 10px;
     filter: brightness(1.2);
@@ -1390,11 +1410,9 @@ dialog.rc-import-dialog {
     left: 0;
     right: 0;
     height: 60px;
-    background: linear-gradient(
-        180deg,
-        rgba(100, 80, 220, 0.1) 0%,
-        transparent 100%
-    );
+    background: linear-gradient(180deg,
+            rgba(100, 80, 220, 0.1) 0%,
+            transparent 100%);
     background-size: 200% 100%;
     animation: recast-underline-sweep 2.4s linear infinite reverse;
     pointer-events: none;
@@ -1402,6 +1420,11 @@ dialog.rc-import-dialog {
 }
 
 @keyframes recast-underline-sweep {
-    0%   { background-position: 100% 50%; }
-    100% { background-position: -100% 50%; }
+    0% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: -100% 50%;
+    }
 }
