@@ -182,7 +182,7 @@ input.pass-enabled {
 }
 
 .rc-diff-title .fa-wand-magic-sparkles {
-    color: #a06be0;
+    color: #d05dc6;
 }
 
 .rc-diff-close-btn {
@@ -198,8 +198,8 @@ input.pass-enabled {
 }
 
 .rc-diff-close-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    background: var(--SmartThemeBorderColor);
+    color: var(--SmartThemeUnderlineColor);
 }
 
 .rc-diff-body {
@@ -343,11 +343,22 @@ input.pass-enabled {
 .rc-diff-accept-btn {
     background: rgba(50, 190, 100, 0.18) !important;
     border-color: rgba(50, 190, 100, 0.45) !important;
-    color: #88e8a0 !important;
+    color: #90ee90 !important;
+}
+
+/* Specificity override for accept button */
+button#recast_diff_accept {
+    background: rgba(50, 200, 80, 0.1) !important;
 }
 
 .rc-diff-accept-btn:hover {
     background: rgba(50, 190, 100, 0.32) !important;
+}
+
+/* Give the reject button the same background and text color as the reject diff highlights */
+button#recast_diff_reject {
+    background: rgba(220, 50, 50, 0.1) !important;
+    color: #ff9090;
 }
 
 /* Diff highlights */
@@ -399,7 +410,7 @@ ins.rc-ins {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--SmartThemeBorderColor);
     border: none;
     cursor: pointer;
     padding: 0;
@@ -408,23 +419,23 @@ ins.rc-ins {
 }
 
 .rc-diff-dot:hover {
-    background: rgba(255, 255, 255, 0.4);
+    background: color-mix(in srgb, var(--SmartThemeBorderColor) 80%, var(--SmartThemeBodyColor));
     transform: scale(1.2);
 }
 
 .rc-diff-dot-active {
-    background: #ffffff;
+    background: var(--SmartThemeUnderlineColor);
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
     transform: scale(1.2);
 }
 
 .rc-diff-dot-active:hover {
-    background: #ffffff;
+    background: var(--SmartThemeUnderlineColor);
 }
 
 .rc-diff-step-label {
     font-size: 0.8em;
-    opacity: 0.7;
+    opacity: 1;
     text-align: center;
     letter-spacing: 0.05em;
     color: var(--SmartThemeBodyColor, #ddd);
@@ -433,7 +444,7 @@ ins.rc-ins {
 
 .rc-diff-step-name {
     font-size: 0.85em;
-    opacity: 0.55;
+    opacity: 0.7;
     font-weight: 400;
     letter-spacing: 0;
 }
@@ -450,7 +461,7 @@ ins.rc-ins {
 }
 
 .rc-diff-nav-arrow:hover:not(:disabled) {
-    color: #fff;
+    color: var(--SmartThemeUnderlineColor);
     transform: scale(1.1);
 }
 
@@ -572,7 +583,7 @@ ins.rc-ins {
 }
 
 .rc-pe-title .fa-wand-magic-sparkles {
-    color: #a06be0;
+    color: #d05dc6;
 }
 
 #rc_pe_name_slot {
@@ -583,7 +594,8 @@ ins.rc-ins {
 /* Name input is parked here live from the pass row */
 #rc_pe_name_slot .pass-name {
     margin: 0;
-    font-weight: 600;
+    font-weight: normal;
+    padding-left: 5px;
 }
 
 .rc-pe-close-btn {
@@ -599,8 +611,8 @@ ins.rc-ins {
 }
 
 .rc-pe-close-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    background: var(--SmartThemeBorderColor);
+    color: var(--SmartThemeUnderlineColor);
 }
 
 .rc-pe-body {
@@ -635,7 +647,8 @@ ins.rc-ins {
 }
 
 #rc_pe_options_slot .checkbox_label {
-    margin-bottom: 4px;
+    margin-bottom: 2px;
+    font-size: 12px;
 }
 
 /* Details block is parked here live from the pass row */
