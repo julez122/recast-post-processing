@@ -51,7 +51,7 @@
                         </div>
                         <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
                     </div>
-                    <div class="inline-drawer-content">
+                    <div class="inline-drawer-content" style="display: block; padding: 10px 10px !important; border: 1.5px solid color-mix(in srgb, #ee5396 60%, var(--SmartThemeChatTintColor)); border-radius: 5px;">
                         <label class="checkbox_label" title="Inject the post-processed text back into the context for future messages">
                             <input type="checkbox" id="recast_inject" />
                             <span>Inject output back to context</span>
@@ -86,7 +86,7 @@
                         </label>
                         <div class="flex-container alignitemscenter" style="margin-top: 8px;" title="Skip the pipeline if the message has fewer characters than this value (0 = disabled)">
                             <span style="min-width: 160px;">Min. Characters (0 = off):</span>
-                            <input type="number" id="recast_min_chars" class="text_pole" value="0" min="0" step="1" style="width: 53%;" />
+                            <input type="number" id="recast_min_chars" class="text_pole" value="0" min="0" step="1" style="width: 55%;" />
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
 <!-- Processing Progress Bar -->
 <div id="recast_progress_bar" style="display:none;">
     <div style="display: flex; align-items: center; margin-bottom: 8px; position: relative;">
-        <div style="font-weight: bold; width: 100%; text-align: center; font-size: 12px; letter-spacing: 1.2px;">→ Recast Pipeline</div>
+        <div style="font-weight: bold; width: 100%; text-align: center; font-size: 14px; letter-spacing: 1.2px;">→ Recast Pipeline</div>
         <button id="recast_stop_pipeline" class="menu_button red_button" title="Stop Pipeline" style="padding: 2px 6px; font-size: 0.8em; position: absolute; right: 0;"><i class="fa-solid fa-stop"></i></button>
     </div>
     <div id="recast_progress_text" style="margin-bottom: 15px; font-size: 12px; opacity: 0.8;">Initializing...</div>
