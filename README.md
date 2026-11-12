@@ -6,6 +6,7 @@ This is my personal fork of [closuretxt's Recast extension](https://github.com/c
 
 - Various CSS fixes to prevent clipped modals, buttons and other input fields.
 - Version 1.87 adds pass Move/Copy, preset import/export with conflict previews and connection mapping, fitted wrapping pass names, a mobile editor header, and modal fixes.
+- Version 1.88 adds various CSS and UI improvements to the post-processing pipeline, including enhanced modal handling and better mobile support. The diff viewer textarea now is seperate from the final diff viewer using it's own separate section to improve readability on narrow screens.
 
 ## 🚀 Installation
 

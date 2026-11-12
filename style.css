@@ -157,8 +157,10 @@ input.pass-enabled {
     z-index: 20000;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     animation: rc-slide-up 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    scrollbar-width: none;
 }
 
 .rc-diff-header {
@@ -203,19 +205,24 @@ input.pass-enabled {
 }
 
 .rc-diff-body {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
+    /* The editor spans its own row instead of sharing the Final panel's height. */
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    align-content: start;
+    flex: 1 0 auto;
+    overflow: visible;
     padding: 14px 16px;
     gap: 10px;
 }
 
 .rc-diff-panel {
-    flex: 1;
+    /* Matching preview heights do not depend on the editor's size or visibility. */
+    height: 50vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     min-width: 0;
+    min-height: 0;
 }
 
 .rc-diff-panel-header {
@@ -255,6 +262,7 @@ input.pass-enabled {
 
 .rc-diff-content {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
     padding: 12px 14px;
     background: rgba(0, 0, 0, 0.22);
@@ -267,35 +275,28 @@ input.pass-enabled {
     white-space: pre-wrap;
     word-break: break-word;
     color: var(--SmartThemeBodyColor, #ddd);
-}
-
-.rc-diff-transformed-content {
-    flex: 0 0 40%;
-    border-radius: 0;
-    border-bottom: none;
+    scrollbar-width: none;
 }
 
 .rc-diff-textarea {
-    flex: 1;
-    resize: none;
+    grid-column: 1 / -1;
+    display: block;
+    resize: vertical;
     font-family: inherit;
-    font-size: 12px;
-    line-height: 1.2;
-    padding: 12px 14px;
-    background: rgba(0, 0, 0, 0.18) !important;
-    color: var(--SmartThemeBodyColor, #ddd) !important;
-    border: 1px solid var(--SmartThemeBorderColor, #444) !important;
-    border-top: 1px dashed rgba(255, 255, 255, 0.08) !important;
-    border-radius: 0 0 6px 6px !important;
+    font-size: 13px;
+    line-height: 1.3;
+    padding: 10px 10px;
+    background: rgba(0, 0, 0, 0.22) !important;
     outline: none;
     width: 100%;
     box-sizing: border-box;
-    min-height: 0;
-}
-
-.rc-diff-textarea:focus {
-    border-color: rgba(74, 144, 226, 0.6) !important;
-    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15) !important;
+    margin: 0;
+    /* Rows set the default size; auto also lets user.css use field-sizing: content. */
+    height: auto;
+    min-height: 160px;
+    max-height: none;
+    text-align: justify;
+    border-style: dashed;
 }
 
 .rc-diff-divider {
@@ -505,15 +506,12 @@ ins.rc-ins {
     }
 
     .rc-diff-body {
-        flex-direction: column;
-        overflow: hidden;
+        grid-template-columns: minmax(0, 1fr);
     }
 
-    /* Each panel takes an equal share of the available body height */
+    /* Stack equal previews above the separate editor; the modal scrolls as a whole. */
     .rc-diff-panel {
-        flex: 1 1 0;
-        min-height: 0;
-        overflow: hidden;
+        height: 28vh;
     }
 
     .rc-diff-divider {
