@@ -63,11 +63,11 @@ export async function swapProfile(targetProfileName, currentProfileName) {
         );
         console.warn(`${LOG_PREFIX} sent slashcommand callback`);
 
-        await waitUntilCondition(() => online_status === 'no_connection', 5000, 100).catch(() => {});
+        await waitUntilCondition(() => online_status === 'no_connection', 5000, 100).catch(() => { });
         console.warn(`${LOG_PREFIX} Saw online_status change to no_connection; Waiting for profile to load...`);
-        await waitForProfileLoad.catch(() => {});
+        await waitForProfileLoad.catch(() => { });
         console.warn(`${LOG_PREFIX} Profile loaded; Waiting for status to change to online...`);
-        await waitUntilCondition(() => online_status !== 'no_connection', 5000, 100).catch(() => {});
+        await waitUntilCondition(() => online_status !== 'no_connection', 5000, 100).catch(() => { });
         console.warn(`${LOG_PREFIX} Saw online_status change to online`);
 
         console.warn(`${LOG_PREFIX} Waiting to ensure profile is fully loaded...`);

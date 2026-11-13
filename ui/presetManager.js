@@ -14,7 +14,7 @@ let refreshMacrosFn = null;
 let closeEditorFn = null;
 
 export const presetManager = {
-    init: function(addPassFn, _saveFn, refreshFn = null, closeFn = null) {
+    init: function (addPassFn, _saveFn, refreshFn = null, closeFn = null) {
         addPassToUIFn = addPassFn;
         refreshMacrosFn = typeof refreshFn === "function" ? refreshFn : null;
         closeEditorFn = closeFn;
@@ -42,12 +42,12 @@ export const presetManager = {
         this.initModalEvents();
     },
 
-    getActivePresetIndex: function() {
+    getActivePresetIndex: function () {
         if (!extension_settings[extensionName]?.presets) return -1;
         return extension_settings[extensionName].presets.findIndex(p => p.name === extension_settings[extensionName].active_preset);
     },
 
-    readActivePasses: function() {
+    readActivePasses: function () {
         const idx = this.getActivePresetIndex();
         if (idx === -1) return [];
         const stored = extension_settings[extensionName].presets[idx].passes;
@@ -56,7 +56,7 @@ export const presetManager = {
         // extend the search scope to the modal for that pass so saving still sees them
         const editorModal = $("#recast_pass_editor_modal");
         const editorPassId = editorModal.data("host-pass-id");
-        $("#recast_pass_list .recast-pass-item").each(function() {
+        $("#recast_pass_list .recast-pass-item").each(function () {
             const item = $(this);
             const scope = editorPassId && item.data("id") === editorPassId ? item.add(editorModal) : item;
             const original = clonePresetData(stored.find(pass => pass.id === item.data('id')) || item.data('pass-data') || {});
@@ -85,7 +85,7 @@ export const presetManager = {
         return passes;
     },
 
-    snapshotPresets: function() {
+    snapshotPresets: function () {
         const presets = clonePresetData(extension_settings[extensionName].presets);
         const idx = this.getActivePresetIndex();
         if (idx >= 0 && $('#recast_pass_list').data('preset-name') === extension_settings[extensionName].active_preset) {
@@ -94,7 +94,7 @@ export const presetManager = {
         return presets;
     },
 
-    saveActivePreset: function() {
+    saveActivePreset: function () {
         const idx = this.getActivePresetIndex();
         if (idx === -1 || $('#recast_pass_list').data('preset-name') !== extension_settings[extensionName].active_preset) return;
         const passes = this.readActivePasses();
@@ -103,7 +103,7 @@ export const presetManager = {
         saveSettingsDebounced();
     },
 
-    populatePresetDropdown: function() {
+    populatePresetDropdown: function () {
         const select = $("#recast_preset_select");
         select.empty();
         if (extension_settings[extensionName]?.presets) {
@@ -114,7 +114,7 @@ export const presetManager = {
         select.val(extension_settings[extensionName].active_preset);
     },
 
-    loadActivePreset: function() {
+    loadActivePreset: function () {
         const idx = this.getActivePresetIndex();
         const preset = extension_settings[extensionName].presets[idx];
         const list = $("#recast_pass_list");
@@ -125,7 +125,7 @@ export const presetManager = {
 
         list.empty();
         list.data('preset-name', preset?.name || '');
-        
+
         if (preset && preset.passes && addPassToUIFn) {
             preset.passes.forEach(pass => {
                 addPassToUIFn(pass);
@@ -136,7 +136,7 @@ export const presetManager = {
 
     // --- Modal Management ---
 
-    initModalEvents: function() {
+    initModalEvents: function () {
         $('#recast_pm_list').off('click.recastPresets');
         // Modal buttons
         $('#recast_preset_manager_close').off('click.recastPresets').on('click.recastPresets', () => this.closeManagerModal());
@@ -148,8 +148,10 @@ export const presetManager = {
             if (!file) return;
             $('#recast_pm_import').prop('disabled', true);
             try {
-                await showPresetImport({ context: getContext(), file,
-                    getPresets: () => this.snapshotPresets(), commit: presets => this.commitPresets(presets) });
+                await showPresetImport({
+                    context: getContext(), file,
+                    getPresets: () => this.snapshotPresets(), commit: presets => this.commitPresets(presets)
+                });
             } catch (error) { toastr.error(error.message, 'Preset import', { escapeHtml: true }); }
             finally { input.value = ''; $('#recast_pm_import').prop('disabled', false); }
         });
@@ -188,7 +190,7 @@ export const presetManager = {
             });
             this.populatePresetDropdown();
             this.loadActivePreset();
-            
+
             if (refreshMacrosFn) refreshMacrosFn();
             saveSettingsDebounced();
             this.renderManagerList();
@@ -229,7 +231,7 @@ export const presetManager = {
             const oldName = item.data("name");
             const st = getContext();
             const newName = await st.Popup.show.input('Rename preset:', '', oldName);
-            
+
             if (!newName || newName === oldName) return;
             if (extension_settings[extensionName].presets.find(p => p.name === newName)) {
                 toastr.warning("A preset with this name already exists.");
@@ -251,18 +253,18 @@ export const presetManager = {
         });
     },
 
-    openManagerModal: function() {
+    openManagerModal: function () {
         this.renderManagerList();
         $("#recast_diff_backdrop").show(); // Reusing the backdrop
         $("#recast_preset_manager_modal").css("display", "flex");
     },
 
-    closeManagerModal: function() {
+    closeManagerModal: function () {
         $('#recast_preset_manager_modal, #recast_diff_backdrop').hide();
         document.getElementById('recast_load_preset')?.focus({ preventScroll: true });
     },
 
-    commitPresets: function(presets) {
+    commitPresets: function (presets) {
         if (closeEditorFn) closeEditorFn(false);
         extension_settings[extensionName].presets = presets;
         if (!presets.some(p => p.name === extension_settings[extensionName].active_preset)) {
@@ -274,14 +276,16 @@ export const presetManager = {
         saveSettingsDebounced();
     },
 
-    openPassTransfer: async function(passId) {
+    openPassTransfer: async function (passId) {
         try {
-            await showPassTransfer({ context: getContext(), sourceName: extension_settings[extensionName].active_preset,
-                passId, getPresets: () => this.snapshotPresets(), commit: presets => this.commitPresets(presets) });
+            await showPassTransfer({
+                context: getContext(), sourceName: extension_settings[extensionName].active_preset,
+                passId, getPresets: () => this.snapshotPresets(), commit: presets => this.commitPresets(presets)
+            });
         } catch (error) { toastr.error(error.message, 'Move/Copy pass', { escapeHtml: true }); }
     },
 
-    exportPresets: function() {
+    exportPresets: function () {
         try {
             const data = createPresetExport(this.snapshotPresets(), availableProfiles(getContext()));
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -298,10 +302,10 @@ export const presetManager = {
         } catch (error) { toastr.error(error.message, 'Preset export', { escapeHtml: true }); }
     },
 
-    renderManagerList: function() {
+    renderManagerList: function () {
         const list = $("#recast_pm_list");
         list.empty();
-        
+
         extension_settings[extensionName].presets.forEach(p => {
             const isActive = p.name === extension_settings[extensionName].active_preset;
             const itemHtml = `
@@ -321,9 +325,9 @@ export const presetManager = {
         });
     },
 
-    saveManagerOrder: function() {
+    saveManagerOrder: function () {
         const newOrder = [];
-        $("#recast_pm_list .rc-pm-item").each(function() {
+        $("#recast_pm_list .rc-pm-item").each(function () {
             const name = $(this).data("name");
             const preset = extension_settings[extensionName].presets.find(p => p.name === name);
             if (preset) newOrder.push(preset);

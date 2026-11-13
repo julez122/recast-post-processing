@@ -27,24 +27,24 @@ export function initSlashCommands() {
         callback: async (args, mesId) => {
             const st = getContext();
             let targetId = mesId;
-            
+
             if (targetId === "" || targetId === undefined || targetId === null) {
                 targetId = st.chat.length - 1;
             } else {
                 targetId = parseInt(targetId, 10);
             }
-            
+
             if (isNaN(targetId) || targetId < 0 || targetId >= st.chat.length) {
                 toastr.warning("Invalid message ID.");
                 return "";
             }
-            
+
             const msg = st.chat[targetId];
             if (!msg || msg.is_user) {
                 toastr.warning("Recast can only process AI messages.");
                 return "";
             }
-            
+
             runPipeline(msg.mes, targetId);
             return "";
         },
@@ -63,30 +63,30 @@ export function initSlashCommands() {
         helpString: 'Run the Recast pipeline on a range of messages (e.g. 5-10).',
         callback: async (args, range, waitTime) => {
             const st = getContext();
-            
+
             if (!range || typeof range !== "string" || !range.includes("-")) {
                 toastr.warning("Please provide a valid range (e.g., 5-10).");
                 return "";
             }
-            
+
             const parts = range.split("-");
             let fromId = parseInt(parts[0], 10);
             let toId = parseInt(parts[1], 10);
-            
+
             if (isNaN(fromId) || isNaN(toId)) {
                 toastr.warning("Invalid range format.");
                 return "";
             }
-            
+
             if (fromId > toId) {
                 const temp = fromId;
                 fromId = toId;
                 toId = temp;
             }
-            
+
             fromId = Math.max(0, fromId);
             toId = Math.min(st.chat.length - 1, toId);
-            
+
             let waitMs = 1000;
             if (waitTime !== "" && waitTime !== undefined && waitTime !== null) {
                 const parsedWait = parseFloat(waitTime);
@@ -94,7 +94,7 @@ export function initSlashCommands() {
                     waitMs = parsedWait * 1000;
                 }
             }
-            
+
             // Background async processing
             (async () => {
                 for (let i = fromId; i <= toId; i++) {
@@ -107,7 +107,7 @@ export function initSlashCommands() {
                     }
                 }
             })();
-            
+
             return "";
         },
         unnamedArgumentList: [
@@ -135,10 +135,10 @@ export function initSlashCommands() {
             } else {
                 settings.enabled = String(state).toLowerCase() === "true";
             }
-            
+
             $("#recast_enabled").prop("checked", settings.enabled);
             saveSettings();
-            
+
             toastr.info(`Recast extension is now ${settings.enabled ? 'enabled' : 'disabled'}.`);
             return "";
         },
@@ -158,17 +158,17 @@ export function initSlashCommands() {
         callback: (args, state) => {
             const settings = extension_settings[extensionName];
             let targetState;
-            
+
             if (state === "" || state === undefined || state === null) {
                 targetState = !settings.replace_inline;
             } else {
                 targetState = String(state).toLowerCase() === "true";
             }
-            
+
             settings.replace_inline = targetState;
             $("#recast_replace_inline").prop("checked", settings.replace_inline);
             saveSettings();
-            
+
             toastr.info(`Recast inline replacement is now ${settings.replace_inline ? 'enabled (no diff)' : 'disabled (diff viewer)'}.`);
             return "";
         },
@@ -187,62 +187,62 @@ export function initSlashCommands() {
         helpString: 'Run a custom set of passes on a message. (e.g., /rc-customrun mesId=5 passes={1, 3})',
         callback: async (args) => {
             const st = getContext();
-            
+
             let targetId = args.mesId;
             if (targetId === undefined || targetId === null) {
                 targetId = st.chat.length - 1;
             } else {
                 targetId = parseInt(targetId, 10);
             }
-            
+
             if (isNaN(targetId) || targetId < 0 || targetId >= st.chat.length) {
                 toastr.warning("Invalid message ID.");
                 return "";
             }
-            
+
             const msg = st.chat[targetId];
             if (!msg || msg.is_user) {
                 toastr.warning("Recast can only process AI messages.");
                 return "";
             }
-            
+
             let passesStr = args.passes;
             if (!passesStr) {
                 toastr.warning("No passes specified. Provide passes={1, 2, 3}");
                 return "";
             }
-            
+
             // Parse passes string "{1, 2, 3}"
             passesStr = passesStr.replace(/[{}]/g, '');
             const passIndexesToRun = passesStr.split(',').map(s => parseInt(s.trim(), 10) - 1).filter(n => !isNaN(n));
-            
+
             if (passIndexesToRun.length === 0) {
                 toastr.warning("Invalid passes format.");
                 return "";
             }
-            
+
             // Temporarily swap out active preset passes?
             // "Make this as undisruptive as possible to index.js"
             // Let's create a temporary modified preset and set it
             const settings = extension_settings[extensionName];
             const originalIdx = presetManager.getActivePresetIndex();
-            
+
             if (originalIdx === -1) {
                 toastr.warning("No active preset to modify.");
                 return "";
             }
-            
+
             const originalPreset = settings.presets[originalIdx];
             const tempPasses = originalPreset.passes.map((p, idx) => {
                 return { ...p, enabled: passIndexesToRun.includes(idx) };
             });
-            
+
             // Temporarily store original passes
             const originalPassesBackup = JSON.parse(JSON.stringify(originalPreset.passes));
-            
+
             // Set modified passes
             originalPreset.passes = tempPasses;
-            
+
             // Await the pipeline run so we can restore it safely afterwards
             // runPipeline manages its own state, but we need to wait for it.
             try {
@@ -277,25 +277,25 @@ export function initSlashCommands() {
         helpString: 'Switches current profile or returns the name of the current profile if nothing is passed.',
         callback: (args, profileName) => {
             const settings = extension_settings[extensionName];
-            
+
             if (profileName === "" || profileName === undefined || profileName === null) {
                 toastr.info(`Current Recast profile: ${settings.active_preset}`);
                 return settings.active_preset;
             }
-            
+
             const profileExists = settings.presets.some(p => p.name === profileName);
             if (!profileExists) {
                 toastr.warning(`Profile "${profileName}" not found.`);
                 return "";
             }
-            
+
             settings.active_preset = profileName;
-            
+
             // Update UI
             $("#recast_preset_select").val(profileName);
             presetManager.loadActivePreset();
             saveSettings();
-            
+
             toastr.info(`Recast profile switched to: ${profileName}`);
             return profileName;
         },

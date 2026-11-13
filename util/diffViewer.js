@@ -36,7 +36,7 @@ function myersDiff(oldTokens, newTokens) {
     for (let editDepth = 0; editDepth <= maxTotalLength; editDepth++) {
         // Memory safeguard for highly divergent huge texts (keeps memory < 100MB)
         if (editDepth > 10000) return null;
-        
+
         pathHistory.push(furthestPaths.slice(maxTotalLength - editDepth, maxTotalLength + editDepth + 1));
 
         for (let diagonal = -editDepth; diagonal <= editDepth; diagonal += 2) {
@@ -159,9 +159,9 @@ function computeWordDiff(oldText, newText) {
     for (const op of fullOps) {
         if (op.v === undefined || op.v === null) continue;
         const v = escapeHtml(op.v);
-        if (op.type === "equal")        { oldHtml += v; newHtml += v; }
-        else if (op.type === "delete")  { oldHtml += `<del class="rc-del">${v}</del>`; }
-        else                            { newHtml += `<ins class="rc-ins">${v}</ins>`; }
+        if (op.type === "equal") { oldHtml += v; newHtml += v; }
+        else if (op.type === "delete") { oldHtml += `<del class="rc-del">${v}</del>`; }
+        else { newHtml += `<ins class="rc-ins">${v}</ins>`; }
     }
 
     return { oldHtml, newHtml };
@@ -481,7 +481,7 @@ export function injectReopenDiffButton() {
     const html = `<div title="View Diff / Revert" class="mes_button recast-reopen-diff-btn interactable fa-solid fa-rotate-left" tabindex="0" style="display:none;"></div>`;
     $("#message_template .mes_buttons .extraMesButtons").prepend(html);
 
-    $("#chat .mes .extraMesButtons").each(function() {
+    $("#chat .mes .extraMesButtons").each(function () {
         if ($(this).find(".recast-reopen-diff-btn").length === 0) {
             $(this).prepend(html);
         }
@@ -490,7 +490,7 @@ export function injectReopenDiffButton() {
 
 export function updateReopenDiffButtons() {
     const st = getST();
-    $("#chat .mes").each(function() {
+    $("#chat .mes").each(function () {
         const mesId = parseInt($(this).attr('mesid'), 10);
         const msg = st.chat[mesId];
         if (msg?.extra?.recast) {

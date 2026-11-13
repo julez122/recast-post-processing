@@ -17,11 +17,11 @@ export const defaultSettings = {
     legacy_api: false, // Swaps profiles and waits for them before doing the request, useful for fixing some issues with root ST code
     compatibility_mode: false, // Enables compatibility fixes for other extensions
     scene_context_as_roles: false,
-    
+
     apply_regexes: true, // Applies ST regex scripts to the pipeline output (assistant placement, depth 0 or N/A only)
     apply_regex_context: true, // Applies ST regex scripts to each context message individually (per-message depth and role placement)
     min_chars: 60, // Skips if there's not enough characters. Useful for preventing rejections or shortcomings from triggering pipeline
-    
+
     presets: defaultPresets,
     active_preset: "Default Preset"
 };
@@ -31,7 +31,7 @@ export function initSettingsListeners() {
     $("#recast_min_chars").on("input change", saveSettings);
 
     // Compatibility warn
-    $("#recast_compatibility").on("change", function() {
+    $("#recast_compatibility").on("change", function () {
         if (typeof toastr !== "undefined") {
             toastr.info("Please reload the page for compatibility mode changes to take full effect.", "Recast Note", { timeOut: 10000 });
         }
@@ -87,7 +87,7 @@ export function saveSettings() {
     extension_settings[extensionName].compatibility_mode = $("#recast_compatibility").prop("checked");
     extension_settings[extensionName].scene_context_as_roles = $("#recast_scene_context_as_roles").prop("checked");
     extension_settings[extensionName].min_chars = parseInt($("#recast_min_chars").val(), 10) || 0;
-    
+
     presetManager.saveActivePreset();
     saveSettingsDebounced();
 }

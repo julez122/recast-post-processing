@@ -5,7 +5,7 @@ export class PipelineBar {
         this.progressText = null;
         this.progressFill = null;
         this.formShield = null;
-        
+
         this.totalPasses = 0;
         this.currentPassIndex = 0;
         this.basePercent = 0;
@@ -35,7 +35,7 @@ export class PipelineBar {
         const wc = this._wordCount(initialText);
         this.previousPassWords = wc > 0 ? wc : 1;
         this.isActive = true;
-        
+
         this.progressBar.fadeIn(200);
         this.progressText.text(`Starting pipeline...`);
         this.progressFill.css("width", `0%`);
@@ -46,24 +46,24 @@ export class PipelineBar {
         this.currentPassIndex = index;
         this.basePercent = (index / this.totalPasses) * 100;
         this.passPercentInfluence = (1 / this.totalPasses) * 100;
-        
+
         this.progressText.text(`Pass ${index + 1}/${this.totalPasses}: ${passName}`);
         this.progressFill.css("width", `${this.basePercent}%`);
     }
 
     updateChunk(currentText) {
         if (!this.isActive || this.totalPasses === 0) return;
-        
+
         // Progress up to influence minus 5%
         const maxChunkInfluence = Math.max(0, this.passPercentInfluence - 5);
         const currentWords = this._wordCount(currentText);
-        
+
         if (currentWords >= this.previousPassWords) {
             this.previousPassWords = currentWords + 10;
         }
 
         const ratio = Math.min(currentWords / this.previousPassWords, 1.0);
-        
+
         const currentPercent = this.basePercent + (ratio * maxChunkInfluence);
         this.progressFill.css("width", `${currentPercent}%`);
     }

@@ -11,26 +11,26 @@ let isSteppedThinkingActive = false; // Stepped Thinking specific variables
 // INIT
 // Initializes listeners for specific extension events to prevent conflicts
 export async function initCompatibilityListeners(onHideNextAiMessageReArm) {
-    await new Promise(resolve => setTimeout(resolve, 5000));
-    
-    const st = getContext();
-    if (!st || !st.eventSource) return;
+  await new Promise((resolve) => setTimeout(resolve, 5000));
 
-    // Listen for Stepped Thinking mutex capture
-    st.eventSource.on('GENERATION_MUTEX_CAPTURED', () => {
-        isSteppedThinkingActive = true;
-    });
+  const st = getContext();
+  if (!st || !st.eventSource) return;
 
-    // Listen for Stepped Thinking mutex release
-    st.eventSource.on('GENERATION_MUTEX_RELEASED', () => {
-        isSteppedThinkingActive = false;
-        if (typeof onHideNextAiMessageReArm === 'function') {
-            onHideNextAiMessageReArm();
-        }
-    });
+  // Listen for Stepped Thinking mutex capture
+  st.eventSource.on("GENERATION_MUTEX_CAPTURED", () => {
+    isSteppedThinkingActive = true;
+  });
 
-    // Success
-    console.warn(`${LOG_PREFIX} Initialized.`);
+  // Listen for Stepped Thinking mutex release
+  st.eventSource.on("GENERATION_MUTEX_RELEASED", () => {
+    isSteppedThinkingActive = false;
+    if (typeof onHideNextAiMessageReArm === "function") {
+      onHideNextAiMessageReArm();
+    }
+  });
+
+  // Success
+  console.warn(`${LOG_PREFIX} Initialized.`);
 }
 
 // EVENT CHECKS
@@ -40,13 +40,15 @@ export async function initCompatibilityListeners(onHideNextAiMessageReArm) {
  * @returns {boolean} True if it should be skipped
  */
 export function shouldSkipStreamIntercept(compatibilityModeEnabled) {
-    if (!compatibilityModeEnabled) return;
+  if (!compatibilityModeEnabled) return;
 
-    if (isSteppedThinkingRunning()) {
-        console.warn(`${LOG_PREFIX} [shouldSkipStreamIntercept] true because [isSteppedThinkingRunning].`);
-        return true;
-    }
-    return false;
+  if (isSteppedThinkingRunning()) {
+    console.warn(
+      `${LOG_PREFIX} [shouldSkipStreamIntercept] true because [isSteppedThinkingRunning].`,
+    );
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -55,16 +57,19 @@ export function shouldSkipStreamIntercept(compatibilityModeEnabled) {
  * @returns {boolean} True if it should be ignored
  */
 export function shouldIgnoreMessageReceived(compatibilityModeEnabled) {
-    if (!compatibilityModeEnabled) return;
+  if (!compatibilityModeEnabled) return;
 
-    if (isSteppedThinkingRunning()) {
-        console.warn(`${LOG_PREFIX} [shouldIgnoreMessageReceived] true because [isSteppedThinkingRunning].`);
-        return true;
-    }
-    return false;
+  if (isSteppedThinkingRunning()) {
+    console.warn(
+      `${LOG_PREFIX} [shouldIgnoreMessageReceived] true because [isSteppedThinkingRunning].`,
+    );
+    return true;
+  }
+  return false;
 }
 
 // Bool Stuff
-export function isSteppedThinkingRunning() { // Checks if Stepped Thinking generation is currently active
-    return isSteppedThinkingActive;
+export function isSteppedThinkingRunning() {
+  // Checks if Stepped Thinking generation is currently active
+  return isSteppedThinkingActive;
 }
