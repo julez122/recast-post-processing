@@ -221,7 +221,7 @@
 
 <!-- Pass Template (Hidden) -->
 <template id="recast_pass_template">
-    <div class="recast-pass-item" style="border: 1px solid var(--SmartThemeBorderColor, #555); padding: 10px; margin-bottom: 5px; border-radius: 5px; background: rgba(0,0,0,0.1);">
+    <div class="recast-pass-item" style="border: 1px solid var(--SmartThemeBorderColor, #555); padding: 10px; margin-bottom: 5px; border-radius: 5px; background: rgba(0,0,0,0.25);">
         <div class="recast-pass-header">
             <div class="rc-pass-identity">
                 <i class="rc-pass-drag fa-solid fa-grip-vertical" aria-hidden="true"></i>
@@ -254,7 +254,7 @@
             </div>
         </div>
         <div class="recast-pass-details" style="display: none; margin-top: 10px;">
-            <div class="flex-container alignitemscenter" style="margin-bottom: 5px;">
+            <div class="flex-container alignitemscenter">
                 <span style="min-width: 120px;" title="Which connection profile should this pass use?">Connection:</span>
                 <select class="pass-connection text_pole flex1"></select>
             </div>
@@ -266,9 +266,9 @@
             
             <div style="margin-bottom: 5px; margin-top: 12px;">
                 <span>Prompt:</span>
-                <textarea class="pass-prompt text_pole" rows="4" style="width: 100%; resize: vertical; margin-top: 8px; height: 50dvh;"></textarea>
+                <textarea class="pass-prompt text_pole" rows="4" style="width: 100%; resize: vertical; margin-top: 8px; height: 50dvh; text-align: justify; padding: 6px 10px;"></textarea>
             </div>
-            <div style="margin-bottom: 5px;">
+            <div style="margin-top: 10px; margin-bottom: 5px;">
                 <div class="flex-container alignitemscenter justifyspacebetween">
                     <span>Prefill:</span>
                     <select class="pass-prefill-role text_pole" title="Role to inject this message as">
