@@ -225,7 +225,7 @@ function hasConnectionProfile(st, profileId) {
 
 function parse_reasoning(text, profile_id) { // thanks qvink
     let ctx = getST();
-    
+
     if (typeof ctx.parseReasoningFromString !== 'function' || typeof ctx.getReasoningTemplateByName !== 'function') {
         return text;
     }
@@ -297,7 +297,7 @@ function showErrorToast(passName, error) {
         if (error.response && error.response.data) {
             try {
                 errorMsg += "\nDetails: " + JSON.stringify(error.response.data);
-            } catch(e) {}
+            } catch (e) { }
         } else if (error.error && error.error.message) {
             errorMsg += "\nDetails: " + error.error.message;
         } else if (error.message && Object.keys(error).length > 1) {
@@ -310,7 +310,7 @@ function showErrorToast(passName, error) {
                 if (Object.keys(cleanErr).length > 0) {
                     errorMsg += "\nDetails: " + JSON.stringify(cleanErr);
                 }
-            } catch(e) {}
+            } catch (e) { }
         }
 
         if (statusCode !== null && statusCode !== undefined) {
@@ -364,7 +364,7 @@ function safeUpdateMessageText(mesId, msg) {
                 )
             );
         }
-        
+
         const mesBiasEl = mesEl.find('.mes_bias');
         if (mesBiasEl.length > 0) {
             mesBiasEl.empty();
@@ -373,8 +373,8 @@ function safeUpdateMessageText(mesId, msg) {
             }
         }
     }
-    
-     //try {
+
+    //try {
     //    redisplayChat(); // Setup Here
     //} catch (e) {
     //    console.warn("Recast: Non-fatal error in redisplayChat", e);
@@ -426,7 +426,7 @@ function populateConnectionDropdown(selectElement, currentValue) {
     const st = getST();
     selectElement.empty();
     selectElement.append($("<option></option>").val("").text("Same as Current"));
-    
+
     // Check if connection profiles extension is active
     if (!st.extensionSettings.disabledExtensions.includes('connection-manager') && st.extensionSettings.connectionManager && st.extensionSettings.connectionManager.profiles) {
         const profiles = st.extensionSettings.connectionManager.profiles;
@@ -509,11 +509,11 @@ function addPassToUI(pass = null) {
             includeSceneContext: true
         };
     }
-    
+
     const template = document.getElementById("recast_pass_template");
     const clone = template.content.cloneNode(true);
     const item = $(clone).find(".recast-pass-item");
-    
+
     item.data("id", pass.id);
     item.attr('data-pass-id', pass.id);
     item.data("pass-data", clonePresetData(pass));
@@ -524,7 +524,7 @@ function addPassToUI(pass = null) {
     item.find(".pass-prompt").val(pass.prompt);
     item.find(".pass-prefill").val(pass.prefill || "");
     item.find(".pass-prefill-role").val(pass.prefillRole || "assistant");
-    
+
     const connectionSelect = item.find(".pass-connection");
     populateConnectionDropdown(connectionSelect, pass.connection);
 
@@ -533,7 +533,7 @@ function addPassToUI(pass = null) {
     item.find(".pass-include-char-card").prop("checked", pass.includeCharCard !== undefined ? pass.includeCharCard : true);
     item.find(".pass-include-scene-context").prop("checked", pass.includeSceneContext !== undefined ? pass.includeSceneContext : true);
 
-    item.find(".pass-expand").on("click", function(e) {
+    item.find(".pass-expand").on("click", function (e) {
         e.stopPropagation();
         openPassEditor(item);
     });
@@ -543,20 +543,20 @@ function addPassToUI(pass = null) {
         presetManager.openPassTransfer(item.data('id'));
     });
 
-    item.find(".pass-remove").on("click", function() {
+    item.find(".pass-remove").on("click", function () {
         // Close the editor first so its parked fields return before the row is removed
         if (isPassEditorOpen(item)) closePassEditor();
         $(this).closest(".recast-pass-item").remove();
         saveSettings();
     });
-    
-    item.find(".pass-toggle-details").on("click", function() {
-        $(this).closest(".recast-pass-item").find(".recast-pass-details").toggle(); 
+
+    item.find(".pass-toggle-details").on("click", function () {
+        $(this).closest(".recast-pass-item").find(".recast-pass-details").toggle();
         $(this).toggleClass("fa-chevron-down fa-chevron-up");
     });
-    
+
     item.find("input, select, textarea").on("change input", saveSettings);
-    
+
     $("#recast_pass_list").append(item);
     schedulePassNameLayout();
 }
@@ -644,11 +644,11 @@ export async function runPass(pass, text, onChunk = null) {
 
     if (IncludeCharCard && char) {
         const CharCardLines = [
-            char.name        ? `<name>${char.name}</name>`                                           : "",
-            char.description ? `<description>${char.description}</description>`                     : "",
-            char.personality ? `<personality>${char.personality}</personality>`                     : "",
-            char.scenario    ? `<scenario>${char.scenario}</scenario>`                               : "",
-            char.mes_example ? `<example_dialogue>\n${char.mes_example}\n</example_dialogue>`       : ""
+            char.name ? `<name>${char.name}</name>` : "",
+            char.description ? `<description>${char.description}</description>` : "",
+            char.personality ? `<personality>${char.personality}</personality>` : "",
+            char.scenario ? `<scenario>${char.scenario}</scenario>` : "",
+            char.mes_example ? `<example_dialogue>\n${char.mes_example}\n</example_dialogue>` : ""
         ].filter(Boolean).join("\n");
         if (CharCardLines.trim()) {
             UserParts.push(`<characters>\n${CharCardLines}\n</characters>`);
@@ -726,7 +726,7 @@ export async function runPass(pass, text, onChunk = null) {
     } else {
         userPrompt = `<text_to_transform>\n${regexedText}\n</text_to_transform>`;
     }
-    
+
     // trim prefill after macros and regex to ensure empty prefill is actually empty
     if (prefillPrompt) prefillPrompt = prefillPrompt.trim();
 
@@ -748,7 +748,7 @@ export async function runPass(pass, text, onChunk = null) {
         }
 
         messages.push({ role: "user", content: userPrompt });
-        
+
         if (prefillPrompt) {
             messages.push({ role: pass.prefillRole || "assistant", content: prefillPrompt });
         }
@@ -805,7 +805,7 @@ export async function runPass(pass, text, onChunk = null) {
 
             return "";
         }
-        
+
         const isPipelineStreamingEnabled = extension_settings[extensionName].stream_pipeline && isSTStreamingEnabled();
 
         try {
@@ -857,22 +857,22 @@ export async function runPipeline(originalText, messageId, skipHide = false, pre
     currentMessageId = messageId;
     isPipelineCancelled = false;
     OriginalResult = originalText;
-    
+
     const idx = presetManager.getActivePresetIndex();
     if (idx === -1) {
         isProcessing = false;
         return { skipped: true, reason: 'no_preset' };
     }
-    
+
     setButtonState(true); // Locks generation - I think?
-    
+
     const preset = extension_settings[extensionName].presets[idx];
     let currentText = originalText;
     _passSnapshots = [prefixText + originalText];
 
     const enabledPasses = preset.passes.filter(p => p.enabled);
     _passNames = enabledPasses.map(p => p.name);
-    
+
     if (enabledPasses.length > 0) {
         pipelineBar.start(enabledPasses.length, currentText);
 
@@ -894,10 +894,10 @@ export async function runPipeline(originalText, messageId, skipHide = false, pre
             currentText = originalText;
             break;
         }
-        
+
         const pass = enabledPasses[i];
         pipelineBar.updatePass(i, pass.name);
-        
+
         const isLastPass = i === enabledPasses.length - 1;
         const hideUntilLast = extension_settings[extensionName].hide_until_last;
         const isPipelineStreamingEnabled = extension_settings[extensionName].stream_pipeline && isSTStreamingEnabled();
@@ -912,7 +912,7 @@ export async function runPipeline(originalText, messageId, skipHide = false, pre
 
         const onChunk = (chunkText) => {
             pipelineBar.updateChunk(chunkText);
-            
+
             if (shouldStreamInline) {
                 const now = performance.now();
                 let textToRender = chunkText;
@@ -923,7 +923,7 @@ export async function runPipeline(originalText, messageId, skipHide = false, pre
                     lastRegexChunkLength = chunkText.length;
                     lastRegexTime = now;
                 }
-                
+
                 // Append any new un-regexed tokens that arrived during the cooldown
                 if (lastRegexResult) {
                     textToRender = lastRegexResult + chunkText.slice(lastRegexChunkLength);
@@ -943,7 +943,7 @@ export async function runPipeline(originalText, messageId, skipHide = false, pre
 
                     const mesEl = document.querySelector(`#chat .mes[mesid="${currentMessageId}"]`);
                     const mesTextEl = mesEl?.querySelector('.mes_text');
-                    
+
                     if (mesTextEl) {
                         const formattedText = messageFormatting(
                             textToRender,
@@ -970,7 +970,7 @@ export async function runPipeline(originalText, messageId, skipHide = false, pre
 
         // Pipeline Startup
         const RawPassResult = await runPass(pass, currentText, onChunk);
-        
+
         if (isPipelineCancelled) {
             logDebug("Pipeline cancelled during pass execution.");
             currentText = originalText;
@@ -1047,7 +1047,7 @@ export async function runPipeline(originalText, messageId, skipHide = false, pre
     }
 
     storeRecastData(currentMessageId, originalFullText, finalFullText, _passSnapshots, _passNames);
-    
+
     // When skipHide is active, the caller (MESSAGE_RECEIVED) handles typewriter display and saving.
     if (skipHide) {
         // isProcessing is handled by the caller in this case
@@ -1063,7 +1063,7 @@ export async function runPipeline(originalText, messageId, skipHide = false, pre
             }
         }
     }
-    
+
     // Skip diff or not.
     if (extension_settings[extensionName].replace_inline) {
         acceptChanges(finalFullText);
@@ -1094,7 +1094,7 @@ export async function runPipeline(originalText, messageId, skipHide = false, pre
             isProcessing = false;
         }, _passSnapshots, _passNames);
     }
-    
+
     return finalFullText;
 }
 
@@ -1192,14 +1192,14 @@ export function refreshRecastMacros() {
 jQuery(async () => {
     const settingsHtml = await $.get(`${extensionFolderPath}/index.html`);
     const tempDiv = $('<div>').html(settingsHtml);
-    
+
     // Progress Bar and stuff
     const progressBar = tempDiv.find("#recast_progress_bar");
     const diffBackdrop = tempDiv.find("#recast_diff_backdrop");
     const diffModal = tempDiv.find("#recast_diff_modal");
-    
+
     $("body").append(progressBar);
-    
+
     pipelineBar.init(() => {
         isPipelineCancelled = true;
         isProcessing = false;
@@ -1212,7 +1212,7 @@ jQuery(async () => {
     $("body").append(tempDiv.find("#recast_pass_editor_backdrop"));
     $("body").append(tempDiv.find("#recast_pass_editor_modal"));
     $("body").append(tempDiv.find("#recast_preset_manager_modal"));
-    
+
     // Append the rest to extensions settings
     $("#extensions_settings").append(tempDiv.children());
 
@@ -1223,13 +1223,13 @@ jQuery(async () => {
     refreshRecastMacros();
     initDiffViewer();
     initSlashCommands();
-    
+
     // Pass Buttons
     $("#recast_add_pass").on("click", () => {
         addPassToUI();
         saveSettings();
     });
-    
+
     $("#recast_run_pipeline").on("click", () => {
         if (!extension_settings[extensionName].enabled) {
             toastr.warning("Recast extension is currently disabled.");
@@ -1244,14 +1244,14 @@ jQuery(async () => {
             toastr.warning("No AI message found to process.");
         }
     });
-    
+
     // Drag and drop sortable list
     $("#recast_pass_list").sortable({
         handle: ".fa-grip-vertical",
         update: saveSettings
     });
 
-    $(document).on("click", function() {
+    $(document).on("click", function () {
         $(".pass-menu-dropdown").hide();
     });
 
@@ -1277,7 +1277,7 @@ jQuery(async () => {
         $("#message_template .mes_buttons .extraMesButtons").prepend(html);
 
         // Inject into any existing messages right now so we don't have to reload
-        $("#chat .mes .extraMesButtons").each(function() {
+        $("#chat .mes .extraMesButtons").each(function () {
             if ($(this).find(".recast-msg-btn").length === 0) {
                 $(this).prepend(html);
             }
@@ -1290,14 +1290,14 @@ jQuery(async () => {
     injectReopenDiffButton();
     updateReopenDiffButtons();
 
-    $(document).on("click", ".recast-reopen-diff-btn", function(e) {
+    $(document).on("click", ".recast-reopen-diff-btn", function (e) {
         e.stopPropagation();
         const mesEl = $(this).closest('.mes');
         const mesId = parseInt(mesEl.attr('mesid'), 10);
         reopenDiffForMessage(mesId);
     });
 
-    $(document).on("click", ".recast-msg-btn", function(e) {
+    $(document).on("click", ".recast-msg-btn", function (e) {
         e.stopPropagation();
         if (!extension_settings[extensionName].enabled) {
             toastr.warning("Recast extension is currently disabled.");
@@ -1309,7 +1309,7 @@ jQuery(async () => {
         const isUser = mesEl.attr('is_user') === 'true';
 
         //if (isUser) {
-       //     toastr.warning("Recast can only process AI messages.");
+        //     toastr.warning("Recast can only process AI messages.");
         //    return;
         //}
 
@@ -1333,7 +1333,7 @@ jQuery(async () => {
             if (!preserveText) {
                 mesTextEl.innerHTML = '';
             }
-            
+
             const observerCallback = () => {
                 if (isResettingStream) return;
                 const mesId = mesTextEl.closest('.mes')?.getAttribute('mesid');
@@ -1341,7 +1341,7 @@ jQuery(async () => {
                     streamInterceptObserver.disconnect();
                     return;
                 }
-                
+
                 isResettingStream = true;
                 streamInterceptObserver.disconnect();
                 mesTextEl.innerHTML = originalHTML;
@@ -1370,13 +1370,13 @@ jQuery(async () => {
                             const mesId = node.getAttribute('mesid');
                             if (mesId && recentProcessedMessages.has(parseInt(mesId, 10))) return;
                             if (isProcessing) return; // Makes sure to not hide self
-                            
+
                             // Compatibility module checks if this should run or not.
                             if (shouldSkipStreamIntercept(extension_settings[extensionName].compatibility_mode)) {
                                 logDebug('Recast: skipping stream intercept because a compatible extension is running.');
                                 return;
                             }
-                            
+
                             hideNextAiMessage = false;
                             const mesTextEl = node.querySelector('.mes_text');
                             if (mesTextEl) {
@@ -1421,9 +1421,9 @@ jQuery(async () => {
             skipGenTypecheck = false;
 
             if (!extension_settings[extensionName].autorun) { logDebug("triggerPipelineOnMessage: autorun disabled, returning"); return; }
-            if (!skip && !['normal', 'swipe', 'regenerate', 'impersonate', 'continue'].includes(lastGenerationType)) { 
-                logDebug(`triggerPipelineOnMessage: lastGenerationType ${lastGenerationType} not supported, returning`); 
-                return; 
+            if (!skip && !['normal', 'swipe', 'regenerate', 'impersonate', 'continue'].includes(lastGenerationType)) {
+                logDebug(`triggerPipelineOnMessage: lastGenerationType ${lastGenerationType} not supported, returning`);
+                return;
             }
             lastGenerationType = null; // Consume it so it doesn't leak into next call
 
@@ -1445,12 +1445,12 @@ jQuery(async () => {
                 streamInterceptObserver = null;
                 logDebug('Recast: stream intercept released at MESSAGE_RECEIVED.');
             }
-            
+
             if (recentProcessedMessages.has(mesId)) { logDebug(`triggerPipelineOnMessage: mesId ${mesId} recently processed, returning`); return; }
             recentProcessedMessages.add(mesId);
 
             const result = await runPipeline(msg.mes, mesId, isIntercepted);
-            
+
             setTimeout(() => recentProcessedMessages.delete(mesId), 5000); // this is some weird issue I can't seem to fix, so whatever make the message immune.
 
             if (result && result.skipped) {
@@ -1534,18 +1534,18 @@ jQuery(async () => {
                 // Swipe/regenerate update an existing element — blank its text directly now
                 const st2 = getST();
                 const mesId = st2.chat.length - 1;
-                    if (mesId >= 0 && st2.chat[mesId] && !st2.chat[mesId].is_user) {
-                        const mesEl = document.querySelector(`#chat .mes[mesid="${mesId}"]`);
-                        const mesTextEl = mesEl?.querySelector('.mes_text');
-                        if (mesTextEl) {
-                            if (extension_settings[extensionName].dynamic_substitution) {
-                                logDebug(`Recast: [GENERATION_STARTED] dynamic substitution active — preserving stream on ${type} mesid=${mesId}.`);
-                            } else {
-                                attachStreamIntercept(mesTextEl, type === 'continue');
-                                logDebug(`Recast: [GENERATION_STARTED] stream intercepted on ${type} mesid=${mesId}.`);
-                            }
+                if (mesId >= 0 && st2.chat[mesId] && !st2.chat[mesId].is_user) {
+                    const mesEl = document.querySelector(`#chat .mes[mesid="${mesId}"]`);
+                    const mesTextEl = mesEl?.querySelector('.mes_text');
+                    if (mesTextEl) {
+                        if (extension_settings[extensionName].dynamic_substitution) {
+                            logDebug(`Recast: [GENERATION_STARTED] dynamic substitution active — preserving stream on ${type} mesid=${mesId}.`);
+                        } else {
+                            attachStreamIntercept(mesTextEl, type === 'continue');
+                            logDebug(`Recast: [GENERATION_STARTED] stream intercepted on ${type} mesid=${mesId}.`);
                         }
                     }
+                }
             } else {
                 // New message: MutationObserver will catch it the instant the DOM node appears
                 hideNextAiMessage = true;
@@ -1591,10 +1591,10 @@ jQuery(async () => {
 
                     // Stepped Thinking might take a few milliseconds to put the actual message in
                     //setTimeout(() => {
-                        //const st2 = getST();
-                        //const mesId = st2.chat.length;
-                        //logDebug(`Recast: Stepped Thinking released mutex. Triggering Pipeline on mesid=${mesId}.`);
-                        //triggerPipelineOnMessage(mesId, true);
+                    //const st2 = getST();
+                    //const mesId = st2.chat.length;
+                    //logDebug(`Recast: Stepped Thinking released mutex. Triggering Pipeline on mesid=${mesId}.`);
+                    //triggerPipelineOnMessage(mesId, true);
                     //}, 200);
                 }
             });

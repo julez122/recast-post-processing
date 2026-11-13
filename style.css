@@ -1,1473 +1,1500 @@
 .recast-panel {
-    padding: 10px;
+  padding: 10px;
 }
 
 .recast-global-settings label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .recast-pass-item {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 5px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 5px;
 }
 
 .recast-pass-item:hover {
-    background:  rgba(0, 0, 0, 0.5) !important;
-    border-color: var(--SmartThemeBodyColor) !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  border-color: var(--SmartThemeBodyColor) !important;
 }
 
 /* Keep pass identity flexible while actions stay at the upper right. */
 .recast-pass-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 6px;
 }
 
 input.pass-enabled {
-    margin-right: 0px !important;
+  margin-right: 0px !important;
 }
 
 .recast-pass-header .fa-grip-vertical {
-    cursor: grab;
-    color: var(--SmartThemeBorderColor);
-    margin-right: 0px !important;
+  cursor: grab;
+  color: var(--SmartThemeBorderColor);
+  margin-right: 0px !important;
 }
 
 /* Give the name a stable available area independent of its fitted field width. */
 .rc-pass-identity {
-    display: flex;
-    flex: 1;
-    min-width: 0;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Reserve the name column without stretching the textarea itself. */
 .rc-pass-name-slot {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 /* Align the drag grip with the first line of the name. */
 .rc-pass-identity .rc-pass-drag {
-    flex: none;
-    margin-top: 6px;
-    opacity: 0.5;
+  flex: none;
+  margin-top: 6px;
+  opacity: 0.5;
 }
 
 /* Keep the enable checkbox compact and aligned with the first name line. */
 .rc-pass-identity .pass-enabled {
-    flex: none;
-    margin-top: 5px;
+  flex: none;
+  margin-top: 5px;
 }
 
 /* Wrap names within their measured width; JavaScript supplies both dimensions. */
 .rc-pass-name {
-    box-sizing: border-box;
-    min-width: 0;
-    min-height: 0;
-    max-width: 100%;
-    margin: 0;
-    padding: 4px 6px;
-    font-size: 12px;
-    line-height: 1.35;
-    resize: none;
-    overflow: hidden;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-    field-sizing: fixed;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 4px 6px;
+  font-size: 12px;
+  line-height: 1.35;
+  resize: none;
+  overflow: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  field-sizing: fixed;
 }
 
 /* Three stable action columns leave Copy directly beneath the chevron. */
 .rc-pass-actions {
-    display: grid;
-    grid-template-columns: repeat(3, 24px);
-    gap: 4px;
-    flex: none;
-    align-items: start;
-    margin-left: 5px;
+  display: grid;
+  grid-template-columns: repeat(3, 24px);
+  gap: 4px;
+  flex: none;
+  align-items: start;
+  margin-left: 5px;
 }
 
 /* Match the existing compact icon controls without inheriting wide button sizes. */
 .rc-pass-actions .menu_button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    min-width: 0;
-    min-height: 0;
-    padding: 3px;
-    margin: 0;
-    font-size: 12px;
-    line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  min-width: 0;
+  min-height: 0;
+  padding: 3px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1;
 }
 
 /* Explicit placement keeps the transfer icon below Toggle Details. */
 .rc-pass-actions .pass-transfer {
-    grid-column: 1;
-    grid-row: 2;
+  grid-column: 1;
+  grid-row: 2;
 }
 
 .recast-pass-details label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
 }
 
 .recast-pass-details select,
 .recast-pass-details input[type="text"],
 .recast-pass-details input[type="number"],
 .recast-pass-details textarea {
-    width: 50%;
-    margin-top: 5px;
-    font-size: 12px !important;
+  width: 50%;
+  margin-top: 5px;
+  font-size: 12px !important;
 }
 
 /* ===== Diff Viewer ===== */
 
 #recast_diff_backdrop {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    z-index: 19999;
-    pointer-events: auto;
-    animation: rc-fade-in 0.2s ease;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 19999;
+  pointer-events: auto;
+  animation: rc-fade-in 0.2s ease;
 }
 
 #recast_diff_modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 88vw;
-    height: 88vh;
-    max-width: 1500px;
-    background: var(--SmartThemeBlurTintColor, #1a1a2e);
-    border: 1px solid var(--SmartThemeBorderColor, #444);
-    border-radius: 12px;
-    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.04);
-    z-index: 20000;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: auto;
-    animation: rc-slide-up 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-    scrollbar-width: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 88vw;
+  height: 88vh;
+  max-width: 1500px;
+  background: var(--SmartThemeBlurTintColor, #1a1a2e);
+  border: 1px solid var(--SmartThemeBorderColor, #444);
+  border-radius: 12px;
+  box-shadow:
+    0 24px 72px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  z-index: 20000;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  animation: rc-slide-up 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  scrollbar-width: none;
 }
 
 .rc-diff-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid var(--SmartThemeBorderColor, #444);
-    background: rgba(0, 0, 0, 0.25);
-    flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid var(--SmartThemeBorderColor, #444);
+  background: rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
 }
 
 .rc-diff-title {
-    font-size: 1.05em;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: var(--SmartThemeBodyColor, #eee);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  font-size: 1.05em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--SmartThemeBodyColor, #eee);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .rc-diff-title .fa-wand-magic-sparkles,
 .rc-diff-title .fa-layer-group {
-    color: #d05dc6;
+  color: #d05dc6;
 }
 
 .rc-diff-close-btn {
-    background: none;
-    border: none;
-    color: var(--SmartThemeBodyColor, #aaa);
-    font-size: 1.15em;
-    cursor: pointer;
-    padding: 5px 9px;
-    border-radius: 6px;
-    transition: background 0.15s, color 0.15s;
-    line-height: 1;
+  background: none;
+  border: none;
+  color: var(--SmartThemeBodyColor, #aaa);
+  font-size: 1.15em;
+  cursor: pointer;
+  padding: 5px 9px;
+  border-radius: 6px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  line-height: 1;
 }
 
 .rc-diff-close-btn:hover {
-    background: var(--SmartThemeBorderColor);
-    color: var(--SmartThemeUnderlineColor);
+  background: var(--SmartThemeBorderColor);
+  color: var(--SmartThemeUnderlineColor);
 }
 
 .rc-diff-body {
-    /* The editor spans its own row instead of sharing the Final panel's height. */
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
-    align-content: start;
-    flex: 1 0 auto;
-    overflow: visible;
-    padding: 14px 16px;
-    gap: 10px;
+  /* The editor spans its own row instead of sharing the Final panel's height. */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+  align-content: start;
+  flex: 1 0 auto;
+  overflow: visible;
+  padding: 14px 16px;
+  gap: 10px;
 }
 
 .rc-diff-panel {
-    /* Matching preview heights do not depend on the editor's size or visibility. */
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    min-width: 0;
-    min-height: 0;
+  /* Matching preview heights do not depend on the editor's size or visibility. */
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
 }
 
 .rc-diff-panel-header {
-    font-size: 0.78em;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    padding: 7px 12px;
-    border-radius: 6px 6px 0 0;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    flex-shrink: 0;
+  font-size: 0.78em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  padding: 7px 12px;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
 }
 
 .rc-diff-original-header {
-    background: rgba(220, 60, 60, 0.14);
-    color: #e08080;
-    border-bottom: 2px solid rgba(220, 60, 60, 0.35);
+  background: rgba(220, 60, 60, 0.14);
+  color: #e08080;
+  border-bottom: 2px solid rgba(220, 60, 60, 0.35);
 }
 
 .rc-diff-transformed-header {
-    background: rgba(50, 200, 100, 0.13);
-    color: #80d890;
-    border-bottom: 2px solid rgba(50, 200, 100, 0.35);
+  background: rgba(50, 200, 100, 0.13);
+  color: #80d890;
+  border-bottom: 2px solid rgba(50, 200, 100, 0.35);
 }
 
 .rc-diff-edit-hint {
-    font-size: 0.78em;
-    opacity: 0.55;
-    font-style: italic;
-    text-transform: none;
-    letter-spacing: 0;
-    margin-left: auto;
-    font-weight: 400;
+  font-size: 0.78em;
+  opacity: 0.55;
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: auto;
+  font-weight: 400;
 }
 
 .rc-diff-content {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-    padding: 12px 14px;
-    background: rgba(0, 0, 0, 0.22);
-    border: 1px solid var(--SmartThemeBorderColor, #444);
-    border-top: none;
-    border-radius: 0 0 6px 6px;
-    font-family: inherit;
-    font-size: 0.93em;
-    line-height: 1.75;
-    white-space: pre-wrap;
-    word-break: break-word;
-    color: var(--SmartThemeBodyColor, #ddd);
-    scrollbar-width: none;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid var(--SmartThemeBorderColor, #444);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  font-family: inherit;
+  font-size: 0.93em;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--SmartThemeBodyColor, #ddd);
+  scrollbar-width: none;
 }
 
 .rc-diff-textarea {
-    grid-column: 1 / -1;
-    display: block;
-    resize: vertical;
-    font-family: inherit;
-    font-size: 12px;
-    line-height: 1.3;
-    padding: 5px 15px 5px 10px !important;
-    background: rgba(0, 0, 0, 0.22) !important;
-    outline: none;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0;
-    margin-top: 5px !important;
-    /* Rows set the default size; auto also lets user.css use field-sizing: content. */
-    height: auto;
-    min-height: 160px;
-    max-height: none;
-    text-align: justify;
-    border-style: dashed;
+  grid-column: 1 / -1;
+  display: block;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.3;
+  padding: 5px 15px 5px 10px !important;
+  background: rgba(0, 0, 0, 0.22) !important;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  margin-top: 5px !important;
+  /* Rows set the default size; auto also lets user.css use field-sizing: content. */
+  height: auto;
+  min-height: 160px;
+  max-height: none;
+  text-align: justify;
+  border-style: dashed;
 }
 
 .rc-diff-divider {
-    width: 1px;
-    background: var(--SmartThemeBorderColor, #444);
-    flex-shrink: 0;
-    margin: 0;
-    opacity: 0.5;
+  width: 1px;
+  background: var(--SmartThemeBorderColor, #444);
+  flex-shrink: 0;
+  margin: 0;
+  opacity: 0.5;
 }
 
 .rc-diff-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 14px;
-    padding: 13px 20px;
-    border-top: 1px solid var(--SmartThemeBorderColor, #444);
-    background: rgba(0, 0, 0, 0.2);
-    flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 20px;
+  border-top: 1px solid var(--SmartThemeBorderColor, #444);
+  background: rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
 }
 
 .rc-diff-btn {
-    padding: 5px 10px !important;
-    font-size: 0.92em !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.04em;
-    display: inline-flex !important;
-    align-items: center;
-    gap: 8px;
-    min-width: fit-content;
-    justify-content: center;
-    border-radius: 7px !important;
-    transition: filter 0.15s, transform 0.1s !important;
+  padding: 5px 10px !important;
+  font-size: 0.92em !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  min-width: fit-content;
+  justify-content: center;
+  border-radius: 7px !important;
+  transition:
+    filter 0.15s,
+    transform 0.1s !important;
 }
 
 .rc-diff-btn:hover {
-    filter: brightness(1.15);
-    transform: translateY(-1px);
+  filter: brightness(1.15);
+  transform: translateY(-1px);
 }
 
 .rc-diff-btn:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 .rc-diff-accept-btn {
-    background: rgba(50, 190, 100, 0.18) !important;
-    border-color: rgba(50, 190, 100, 0.45) !important;
-    color: #90ee90 !important;
+  background: rgba(50, 190, 100, 0.18) !important;
+  border-color: rgba(50, 190, 100, 0.45) !important;
+  color: #90ee90 !important;
 }
 
 /* Specificity override for accept button */
 button#recast_diff_accept {
-    background: rgba(50, 200, 80, 0.1) !important;
+  background: rgba(50, 200, 80, 0.1) !important;
 }
 
 .rc-diff-accept-btn:hover {
-    background: rgba(50, 190, 100, 0.32) !important;
+  background: rgba(50, 190, 100, 0.32) !important;
 }
 
 /* Give the reject button the same background and text color as the reject diff highlights */
 button#recast_diff_reject {
-    background: rgba(220, 50, 50, 0.1) !important;
-    color: #ff9090;
+  background: rgba(220, 50, 50, 0.1) !important;
+  color: #ff9090;
 }
 
 /* Diff highlights */
 del.rc-del {
-    background: rgba(220, 50, 50, 0.28);
-    color: #ff9090;
-    text-decoration: line-through;
-    text-decoration-color: rgba(220, 80, 80, 0.6);
-    border-radius: 2px;
-    padding: 0 1px;
+  background: rgba(220, 50, 50, 0.28);
+  color: #ff9090;
+  text-decoration: line-through;
+  text-decoration-color: rgba(220, 80, 80, 0.6);
+  border-radius: 2px;
+  padding: 0 1px;
 }
 
 ins.rc-ins {
-    background: rgba(50, 200, 80, 0.24);
-    color: #90ee90;
-    text-decoration: none;
-    border-radius: 2px;
-    padding: 0 1px;
+  background: rgba(50, 200, 80, 0.24);
+  color: #90ee90;
+  text-decoration: none;
+  border-radius: 2px;
+  padding: 0 1px;
 }
 
 /* ===== Diff Step Navigation ===== */
 
 .rc-diff-steps {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 20px 8px 20px;
-    border-top: 1px solid var(--SmartThemeBorderColor, #444);
-    background: rgba(0, 0, 0, 0.15);
-    flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px 8px 20px;
+  border-top: 1px solid var(--SmartThemeBorderColor, #444);
+  background: rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
 }
 
 .rc-diff-step-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 
 .rc-diff-dots {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .rc-diff-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--SmartThemeBorderColor);
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    flex-shrink: 0;
-    transition: all 0.2s ease;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--SmartThemeBorderColor);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
 }
 
 .rc-diff-dot:hover {
-    background: color-mix(in srgb, var(--SmartThemeBorderColor) 80%, var(--SmartThemeBodyColor));
-    transform: scale(1.2);
+  background: color-mix(
+    in srgb,
+    var(--SmartThemeBorderColor) 80%,
+    var(--SmartThemeBodyColor)
+  );
+  transform: scale(1.2);
 }
 
 .rc-diff-dot-active {
-    background: var(--SmartThemeUnderlineColor);
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    transform: scale(1.2);
+  background: var(--SmartThemeUnderlineColor);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  transform: scale(1.2);
 }
 
 .rc-diff-dot-active:hover {
-    background: var(--SmartThemeUnderlineColor);
+  background: var(--SmartThemeUnderlineColor);
 }
 
 .rc-diff-step-label {
-    font-size: 0.8em;
-    opacity: 1;
-    text-align: center;
-    letter-spacing: 0.05em;
-    color: var(--SmartThemeBodyColor, #ddd);
-    font-weight: 500;
+  font-size: 0.8em;
+  opacity: 1;
+  text-align: center;
+  letter-spacing: 0.05em;
+  color: var(--SmartThemeBodyColor, #ddd);
+  font-weight: 500;
 }
 
 .rc-diff-step-name {
-    font-size: 0.85em;
-    opacity: 0.7;
-    font-weight: 400;
-    letter-spacing: 0;
+  font-size: 0.85em;
+  opacity: 0.7;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 .rc-diff-nav-arrow {
-    background: none;
-    border: none;
-    color: var(--SmartThemeBodyColor, #aaa);
-    cursor: pointer;
-    padding: 4px;
-    font-size: 1.1em;
-    line-height: 1;
-    transition: color 0.2s ease, transform 0.1s;
+  background: none;
+  border: none;
+  color: var(--SmartThemeBodyColor, #aaa);
+  cursor: pointer;
+  padding: 4px;
+  font-size: 1.1em;
+  line-height: 1;
+  transition:
+    color 0.2s ease,
+    transform 0.1s;
 }
 
 .rc-diff-nav-arrow:hover:not(:disabled) {
-    color: var(--SmartThemeUnderlineColor);
-    transform: scale(1.1);
+  color: var(--SmartThemeUnderlineColor);
+  transform: scale(1.1);
 }
 
 .rc-diff-nav-arrow:active:not(:disabled) {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 .rc-diff-nav-arrow:disabled {
-    opacity: 0.2;
-    cursor: default;
+  opacity: 0.2;
+  cursor: default;
 }
 
 /* ===== Portrait (mobile) Responsive Diff ===== */
 
 @media (orientation: portrait) {
-    #recast_diff_backdrop {
-        width: 100dvw;
-        height: 100dvh;
-    }
+  #recast_diff_backdrop {
+    width: 100dvw;
+    height: 100dvh;
+  }
 
-    #recast_diff_modal {
-        top: 2.5vh;
-        left: 2.5vw;
-        transform: none !important;
-        width: 95vw;
-        height: 85vh;
-        max-width: none;
-        animation: rc-fade-in 0.22s ease;
-    }
+  #recast_diff_modal {
+    top: 2.5vh;
+    left: 2.5vw;
+    transform: none !important;
+    width: 95vw;
+    height: 85vh;
+    max-width: none;
+    animation: rc-fade-in 0.22s ease;
+  }
 
-    /* Let the manager fit its contents while retaining a visible footer. */
-    #recast_preset_manager_modal {
-        top: 50dvh !important;
-        left: 50vw !important;
-        transform: translate(-50%, -50%) !important;
-        width: 92vw !important;
-        height: auto !important;
-        max-height: 85vh !important;
-        max-width: 460px !important;
-        animation: rc-fade-in 0.22s ease;
-    }
+  /* Let the manager fit its contents while retaining a visible footer. */
+  #recast_preset_manager_modal {
+    top: 50dvh !important;
+    left: 50vw !important;
+    transform: translate(-50%, -50%) !important;
+    width: 92vw !important;
+    height: auto !important;
+    max-height: 85vh !important;
+    max-width: 460px !important;
+    animation: rc-fade-in 0.22s ease;
+  }
 
-    .rc-diff-body {
-        grid-template-columns: minmax(0, 1fr);
-    }
+  .rc-diff-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
-    /* Stack equal previews above the separate editor; the modal scrolls as a whole. */
-    .rc-diff-panel {
-        height: 28vh;
-    }
+  /* Stack equal previews above the separate editor; the modal scrolls as a whole. */
+  .rc-diff-panel {
+    height: 28vh;
+  }
 
-    .rc-diff-divider {
-        width: 100%;
-        height: 1px;
-        flex-shrink: 0;
-    }
+  .rc-diff-divider {
+    width: 100%;
+    height: 1px;
+    flex-shrink: 0;
+  }
 }
 
 /* ===== Pass Editor Modal ===== */
 
 #recast_pass_editor_backdrop {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    z-index: 19999;
-    pointer-events: auto;
-    animation: rc-fade-in 0.2s ease;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 19999;
+  pointer-events: auto;
+  animation: rc-fade-in 0.2s ease;
 }
 
 #recast_pass_editor_modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 88vw;
-    max-width: 1500px;
-    height: 88vh;
-    background: var(--SmartThemeBlurTintColor, #1a1a2e);
-    border: 1px solid var(--SmartThemeBorderColor, #444);
-    border-radius: 12px;
-    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.04);
-    z-index: 20000;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    animation: rc-slide-up 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 88vw;
+  max-width: 1500px;
+  height: 88vh;
+  background: var(--SmartThemeBlurTintColor, #1a1a2e);
+  border: 1px solid var(--SmartThemeBorderColor, #444);
+  border-radius: 12px;
+  box-shadow:
+    0 24px 72px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  z-index: 20000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: rc-slide-up 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .rc-pe-header {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 9px 20px;
-    border-bottom: 1px solid var(--SmartThemeBorderColor, #444);
-    background: rgba(0, 0, 0, 0.25);
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 20px;
+  border-bottom: 1px solid var(--SmartThemeBorderColor, #444);
+  background: rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
 }
 
 .rc-pe-title {
-    font-size: 1.05em;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: var(--SmartThemeBodyColor, #eee);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
+  font-size: 1.05em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--SmartThemeBodyColor, #eee);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
 }
 
 .rc-pe-title .fa-wand-magic-sparkles {
-    color: #d05dc6;
+  color: #d05dc6;
 }
 
 #rc_pe_name_slot {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 /* Name input is parked here live from the pass row */
 #rc_pe_name_slot .pass-name {
-    margin: 0;
-    font-weight: normal;
-    padding-left: 5px;
+  margin: 0;
+  font-weight: normal;
+  padding-left: 5px;
 }
 
 .rc-pe-close-btn {
-    background: none;
-    border: none;
-    color: var(--SmartThemeBodyColor, #aaa);
-    font-size: 1.15em;
-    cursor: pointer;
-    padding: 5px 9px;
-    border-radius: 6px;
-    transition: background 0.15s, color 0.15s;
-    flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--SmartThemeBodyColor, #aaa);
+  font-size: 1.15em;
+  cursor: pointer;
+  padding: 5px 9px;
+  border-radius: 6px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  flex-shrink: 0;
 }
 
 .rc-pe-close-btn:hover {
-    background: var(--SmartThemeBorderColor);
-    color: var(--SmartThemeUnderlineColor);
+  background: var(--SmartThemeBorderColor);
+  color: var(--SmartThemeUnderlineColor);
 }
 
 .rc-pe-body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 10px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .rc-pe-section-label {
-    display: block;
-    font-size: 0.78em;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    opacity: 0.65;
-    margin-bottom: 6px;
+  display: block;
+  font-size: 0.78em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.65;
+  margin-bottom: 6px;
 }
 
 /* Options dropdown is parked here live from the pass row and laid out inline */
 #rc_pe_options_slot .pass-menu-dropdown {
-    display: block !important;
-    position: static !important;
-    background: none !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    min-width: 0 !important;
+  display: block !important;
+  position: static !important;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  min-width: 0 !important;
 }
 
 #rc_pe_options_slot .checkbox_label {
-    margin-bottom: 2px;
-    font-size: 12px;
+  margin-bottom: 2px;
+  font-size: 12px;
 }
 
 /* Details block is parked here live from the pass row */
 #rc_pe_details_slot .recast-pass-details {
-    display: block !important;
-    margin-top: 0 !important;
+  display: block !important;
+  margin-top: 0 !important;
 }
 
 /* Roomy prompt for actual writing */
 #rc_pe_details_slot .pass-prompt {
-    min-height: 38vh;
-    resize: vertical;
-    line-height: 1.2;
+  min-height: 38vh;
+  resize: vertical;
+  line-height: 1.2;
 }
 
 #rc_pe_details_slot .pass-prefill {
-    min-height: 14vh;
-    resize: vertical;
+  min-height: 14vh;
+  resize: vertical;
 }
 
 .rc-pe-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    padding: 14px 20px;
-    border-top: 1px solid var(--SmartThemeBorderColor, #444);
-    background: rgba(0, 0, 0, 0.25);
-    flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--SmartThemeBorderColor, #444);
+  background: rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
 }
 
 .rc-pe-btn {
-    padding: 5px 7px !important;
-    font-size: 0.92em !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.04em;
-    display: inline-flex !important;
-    align-items: baseline;
-    justify-content: center;
-    gap: 8px;
-    min-width: fit-content;
-    border-radius: 7px !important;
-    transition: filter 0.15s, transform 0.1s !important;
+  padding: 5px 7px !important;
+  font-size: 0.92em !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em;
+  display: inline-flex !important;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  min-width: fit-content;
+  border-radius: 7px !important;
+  transition:
+    filter 0.15s,
+    transform 0.1s !important;
 }
 
 .rc-pe-btn:hover {
-    filter: brightness(1.15);
-    transform: translateY(-1px);
+  filter: brightness(1.15);
+  transform: translateY(-1px);
 }
 
 .rc-pe-btn:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 /* Portrait (mobile) Pass Editor */
 
 @media (orientation: portrait) {
-    #recast_pass_editor_backdrop {
-        width: 100dvw;
-        height: 100dvh;
-    }
+  #recast_pass_editor_backdrop {
+    width: 100dvw;
+    height: 100dvh;
+  }
 
-    #recast_pass_editor_modal {
-        top: 2.5vh;
-        left: 2.5vw;
-        transform: none !important;
-        width: 95vw;
-        height: 85vh;
-        animation: rc-fade-in 0.22s ease;
-    }
+  #recast_pass_editor_modal {
+    top: 2.5vh;
+    left: 2.5vw;
+    transform: none !important;
+    width: 95vw;
+    height: 85vh;
+    animation: rc-fade-in 0.22s ease;
+  }
 
-    #rc_pe_details_slot .pass-prompt {
-        min-height: 30vh;
-    }
+  #rc_pe_details_slot .pass-prompt {
+    min-height: 30vh;
+  }
 
-    #rc_pe_details_slot .pass-prefill {
-        min-height: 10vh;
-    }
+  #rc_pe_details_slot .pass-prefill {
+    min-height: 10vh;
+  }
 
-    /* Prevent iOS zoom on focus */
-    #rc_pe_details_slot textarea,
-    #rc_pe_details_slot select,
-    #rc_pe_name_slot .pass-name {
-        font-size: 12px;
-        height: 25px;
-    }
+  /* Prevent iOS zoom on focus */
+  #rc_pe_details_slot textarea,
+  #rc_pe_details_slot select,
+  #rc_pe_name_slot .pass-name {
+    font-size: 12px;
+    height: 25px;
+  }
 }
 
 @keyframes rc-fade-in {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes rc-slide-up {
-    from {
-        opacity: 0;
-        transform: translate(-50%, calc(-50% + 18px));
-    }
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 18px));
+  }
 
-    to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* ===== Preset Manager Modal ===== */
 
 .rc-pm-closing {
-    animation: rc-slide-down 0.2s cubic-bezier(0.4, 0, 1, 1) forwards !important;
-    pointer-events: none;
+  animation: rc-slide-down 0.2s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+  pointer-events: none;
 }
 
 @keyframes rc-slide-down {
-    from {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 
-    to {
-        opacity: 0;
-        transform: translate(-50%, calc(-50% + 16px));
-    }
+  to {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 16px));
+  }
 }
 
 #recast_preset_manager_modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 460px;
-    max-width: 92vw;
-    max-height: 78vh;
-    background: var(--SmartThemeBlurTintColor, #1a1a2e);
-    border: 1px solid var(--SmartThemeBorderColor, #444);
-    border-radius: 12px;
-    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.04);
-    z-index: 20000;
-    flex-direction: column;
-    overflow: hidden;
-    animation: rc-slide-up 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 460px;
+  max-width: 92vw;
+  max-height: 78vh;
+  background: var(--SmartThemeBlurTintColor, #1a1a2e);
+  border: 1px solid var(--SmartThemeBorderColor, #444);
+  border-radius: 12px;
+  box-shadow:
+    0 24px 72px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  z-index: 20000;
+  flex-direction: column;
+  overflow: hidden;
+  animation: rc-slide-up 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Keep the manager header proportional to its compact controls. */
 .rc-pm-header {
-    padding: 10px 15px;
-    flex-shrink: 0;
+  padding: 10px 15px;
+  flex-shrink: 0;
 }
 
 /* The list scrolls within the body while toolbar and footer remain reachable. */
 .rc-pm-body {
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
-    padding: 12px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-    border-bottom: 1px solid var(--SmartThemeBorderColor);
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  border-bottom: 1px solid var(--SmartThemeBorderColor);
 }
 
 /* Give icon+text buttons in the modal proper spacing */
 .rc-pm-body .menu_button {
-    gap: 6px;
+  gap: 6px;
 }
 
 /* Constrain long collections instead of scrolling away the manager actions. */
 .rc-pm-list {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    min-height: 0;
-    overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 /* Keep preset creation controls fitted and beside one another. */
 .rc-pm-toolbar {
-    display: flex;
-    flex: none;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin: auto;
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: auto;
 }
 
 /* Keep import/export visible below the scrolling preset list. */
 .rc-pm-footer {
-    display: flex;
-    flex: none;
-    gap: 8px;
-    align-items: center;
-    padding: 8px 14px;
-    margin: auto;
+  display: flex;
+  flex: none;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 14px;
+  margin: auto;
 }
 
 /* Use compact, content-sized buttons in both manager action rows. */
 .rc-pm-toolbar .menu_button,
 .rc-pm-footer .menu_button {
-    width: auto;
-    min-width: 0;
-    min-height: 0;
-    height: 26px;
-    margin: 0;
-    padding: 4px 8px;
-    font-size: 12px;
-    gap: 6px;
-    font-family: 'Noto Sans';
-    font-weight: normal;
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  height: 26px;
+  margin: 0;
+  padding: 4px 8px;
+  font-size: 12px;
+  gap: 6px;
+  font-family: "Noto Sans";
+  font-weight: normal;
 }
 
 /* Prevent the icon from being displayed as question mark due to missing font */
 button#recast_pm_restore:before {
-    font-family: 'Font Awesome 6 Free';
-    font-size: 10px !important;
+  font-family: "Font Awesome 6 Free";
+  font-size: 10px !important;
 }
 
 /* Native dialogs use the current theme and fit the available viewport. */
 dialog.rc-tools-dialog {
-    box-sizing: border-box;
-    min-height: 0;
-    width: min(460px, 92vw);
-    max-width: 94vw;
-    max-height: 88dvh;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 12px;
+  box-sizing: border-box;
+  min-height: 0;
+  width: min(460px, 92vw);
+  max-width: 94vw;
+  max-height: 88dvh;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 12px;
 }
 
 /* Desktop conflict comparisons need room for two readable prompt columns. */
 dialog.rc-import-dialog {
-    width: min(1000px, 94vw);
+  width: min(1000px, 94vw);
 }
 
 /* Contain long review content within the native popup's scroll area. */
 .rc-tools-dialog .popup-content {
-    min-width: 0;
-    min-height: 0;
-    overflow-y: auto;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 /* Allow the native popup body to shrink below its contents within the height cap. */
 .rc-tools-dialog .popup-body {
-    min-height: 0;
+  min-height: 0;
 }
 
 /* Space dialog sections without extra decorative containers. */
 .rc-tools-root {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    min-width: 0;
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 0;
+  text-align: left;
 }
 
 /* Leave space for the native close button beside the compact title. */
 .rc-tools-title {
-    margin: 0 24px 0 0;
-    font-size: 15px;
-    line-height: 1.4;
+  margin: 0 24px 0 0;
+  font-size: 15px;
+  line-height: 1.4;
 }
 
 /* Keep explanatory text compact and wrap unusually long names. */
 .rc-tools-description {
-    margin: 0;
-    font-size: 12px;
-    overflow-wrap: anywhere;
+  margin: 0;
+  font-size: 12px;
+  overflow-wrap: anywhere;
 }
 
 /* Keep reviewed actions together as the dialog body scrolls. */
 .rc-tools-footer {
-    position: sticky;
-    bottom: 0;
-    display: flex;
-    justify-content: flex-end;
-    gap: 6px;
-    flex-wrap: wrap;
-    padding: 8px 0 0;
-    background: var(--SmartThemeBlurTintColor);
-    z-index: 1;
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 8px 0 0;
+  background: var(--SmartThemeBlurTintColor);
+  z-index: 1;
 }
 
 /* Override native theme button growth only inside the new dialogs. */
 .rc-tools-root .menu_button {
-    width: auto;
-    min-width: 0;
-    min-height: 0;
-    margin: 0;
-    padding: 4px 8px;
-    font-size: 12px;
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 4px 8px;
+  font-size: 12px;
 }
 
 /* Errors remain readable without reserving empty space when no error exists. */
 .rc-tools-error {
-    margin: 0;
-    color: var(--SmartThemeBodyColor);
-    font-size: 11px;
-    overflow-wrap: anywhere;
+  margin: 0;
+  color: var(--SmartThemeBodyColor);
+  font-size: 11px;
+  overflow-wrap: anywhere;
 }
 
 /* Empty status paragraphs should not add gaps or blank rows. */
 .rc-tools-error:empty,
 .rc-import-replacements:empty,
 .rc-import-preview:empty {
-    display: none;
+  display: none;
 }
 
 /* Show destination presets in their saved order with contained scrolling. */
 .rc-transfer-list {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    max-height: 45dvh;
-    overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 45dvh;
+  overflow-y: auto;
 }
 
 /* Make each destination row selectable without widening its checkbox. */
 .rc-transfer-preset-row {
-    display: flex;
-    gap: 7px;
-    align-items: flex-start;
-    padding: 6px 8px;
-    border: 1px solid var(--SmartThemeBorderColor);
-    border-radius: 5px;
+  display: flex;
+  gap: 7px;
+  align-items: flex-start;
+  padding: 6px 8px;
+  border: 1px solid var(--SmartThemeBorderColor);
+  border-radius: 5px;
 }
 
 /* Keep the checkbox at its native compact size. */
 .rc-transfer-preset-check {
-    flex: none;
-    margin: 2px 0 0;
+  flex: none;
+  margin: 2px 0 0;
 }
 
 /* Preset names wrap while the current-preset indicator remains distinct. */
 .rc-transfer-preset-name {
-    flex: 1;
-    min-width: 0;
-    overflow-wrap: anywhere;
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* Identify the disabled source without a second interactive control. */
 .rc-transfer-current {
-    flex: none;
-    font-size: 10px;
-    opacity: 0.7;
+  flex: none;
+  font-size: 10px;
+  opacity: 0.7;
 }
 
 /* Keep the all-toggle fitted to its caption. */
 .rc-transfer-select-all {
-    align-self: flex-start;
+  align-self: flex-start;
 }
 
 /* Explain Move's effect in compact secondary text. */
 .rc-transfer-move-note {
-    font-size: 11px;
-    opacity: 0.8;
-    overflow-wrap: anywhere;
+  font-size: 11px;
+  opacity: 0.8;
+  overflow-wrap: anywhere;
 }
 
 /* Keep import decisions in a compact, scrollable list. */
 .rc-import-preset-list {
-    max-height: 27dvh;
-    overflow-y: auto;
+  max-height: 27dvh;
+  overflow-y: auto;
 }
 
 /* Reserve fixed action space without squeezing preview names into it. */
 .rc-import-preset-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto auto;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--SmartThemeBorderColor);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--SmartThemeBorderColor);
 }
 
 /* Long preset names wrap rather than overflowing action selectors. */
 .rc-import-preset-name {
-    min-width: 0;
-    overflow-wrap: anywhere;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* Conflict labels are subordinate to the preset name. */
 .rc-import-conflict-tag {
-    display: block;
-    font-size: 10px;
-    opacity: 0.75;
+  display: block;
+  font-size: 10px;
+  opacity: 0.75;
 }
 
 /* Keep conflict choices fitted to their option text. */
 .rc-import-action {
-    width: auto;
-    max-width: 125px;
-    min-width: 0;
-    margin: 0;
-    padding: 4px 6px;
-    font-size: 12px;
+  width: auto;
+  max-width: 125px;
+  min-width: 0;
+  margin: 0;
+  padding: 4px 6px;
+  font-size: 12px;
 }
 
 /* Separate the comparison from decisions without adding another card. */
 .rc-import-preview {
-    min-width: 0;
-    /* border-top: 1px solid var(--SmartThemeBorderColor); */
-    padding-top: 6px;
+  min-width: 0;
+  /* border-top: 1px solid var(--SmartThemeBorderColor); */
+  padding-top: 6px;
 }
 
 /* Use modest headings for comparison and mapping sections. */
 .rc-import-preview-title,
 .rc-import-preview-side-title,
 .rc-import-connections-title {
-    margin: 5px 0 8px;
-    font-size: 14px !important;
-    overflow-wrap: anywhere;
-    font-family: 'Noto Sans' !important;
-    letter-spacing: normal !important;
+  margin: 5px 0 8px;
+  font-size: 14px !important;
+  overflow-wrap: anywhere;
+  font-family: "Noto Sans" !important;
+  letter-spacing: normal !important;
 }
 
 /* Desktop comparisons keep each preset in its own equally sized column. */
 .rc-import-preview-columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
 /* Prevent pass content from stretching either comparison column. */
 .rc-import-preview-side {
-    min-width: 0;
+  min-width: 0;
 }
 
 /* Mobile tabs are unnecessary when both desktop columns are visible. */
 .rc-import-preview-tabs {
-    display: none;
-    gap: 6px;
-    margin-bottom: 6px;
+  display: none;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 
 /* Clearly mark the active mobile comparison tab. */
 .rc-import-preview-tab[aria-pressed="true"] {
-    border-color: var(--SmartThemeBodyColor);
+  border-color: var(--SmartThemeBodyColor);
 }
 
 /* Keep each pass expandable in its original order. */
 .rc-import-preview-pass {
-    margin-bottom: 6px;
-    border-bottom: 1px solid var(--SmartThemeBorderColor);
-    padding-bottom: 5px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--SmartThemeBorderColor);
+  padding-bottom: 5px;
 }
 
 /* Make pass headings selectable and readable even with long names. */
 .rc-import-preview-pass-name {
-    cursor: pointer;
-    overflow-wrap: anywhere;
-    font-size: 12px;
-    font-weight: 600;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 /* Put secondary configuration behind its own disclosure after the full prompts. */
 .rc-import-preview-options {
-    margin: 6px 0;
+  margin: 6px 0;
 }
 
 /* Keep the secondary settings disclosure distinct and compact. */
 .rc-import-preview-options-title {
-    cursor: pointer;
-    font-size: 11px;
-    font-weight: 600;
-    opacity: 0.8;
-    margin-bottom: 6px;
-    margin-top: 10px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-bottom: 6px;
+  margin-top: 10px;
 }
 
 /* Present pass configuration as compact label/value pairs. */
 .rc-import-preview-settings {
-    display: grid;
-    grid-template-columns: minmax(0, 105px) minmax(0, 1fr);
-    gap: 3px 8px;
-    margin: 7px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 105px) minmax(0, 1fr);
+  gap: 3px 8px;
+  margin: 7px 0;
 }
 
 /* Subdue configuration labels without reducing prompt readability. */
 .rc-import-preview-setting-label {
-    font-size: 10px;
-    opacity: 0.75;
+  font-size: 10px;
+  opacity: 0.75;
 }
 
 /* IDs and connection names must wrap within the comparison column. */
 .rc-import-preview-setting-value {
-    margin: 0;
-    min-width: 0;
-    font-size: 10px;
-    overflow-wrap: anywhere;
+  margin: 0;
+  min-width: 0;
+  font-size: 10px;
+  overflow-wrap: anywhere;
 }
 
 /* Distinguish literal prompt and prefill previews from metadata. */
 .rc-import-preview-prompt-label,
 .rc-import-preview-prefill-label {
-    margin: 6px 0 4px;
-    font-size: 11px;
+  margin: 6px 0 4px;
+  font-size: 11px;
 }
 
 /* Preserve full raw prompt text with wrapping and its own scroll area. */
 .rc-import-preview-prompt,
 .rc-import-preview-prefill {
-    max-height: 260px;
-    overflow: auto;
-    margin: 0 0 6px;
-    padding: 6px;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-    font-family: inherit;
-    font-size: 11px;
-    line-height: 1.4;
-    border: 1px solid var(--SmartThemeBorderColor);
-    border-radius: 5px;
+  max-height: 260px;
+  overflow: auto;
+  margin: 0 0 6px;
+  padding: 6px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 1.4;
+  border: 1px solid var(--SmartThemeBorderColor);
+  border-radius: 5px;
 }
 
 /* Empty-preset previews remain secondary information. */
 .rc-import-preview-empty {
-    font-size: 11px;
-    margin: 0 0 6px;
-    opacity: 1;
+  font-size: 11px;
+  margin: 0 0 6px;
+  opacity: 1;
 }
 
 /* Keep connection mapping distinct from prompt comparisons. */
 .rc-import-connections {
-    padding-top: 6px;
-    /* border-top: 1px solid var(--SmartThemeBorderColor); */
+  padding-top: 6px;
+  /* border-top: 1px solid var(--SmartThemeBorderColor); */
 }
 
 /* Explain mapping once above the individual profile choices. */
 .rc-import-connections-description {
-    display: block;
-    font-size: 9px;
-    margin-bottom: 15px;
+  display: block;
+  font-size: 9px;
+  margin-bottom: 15px;
 }
 
 /* Preserve a horizontal mapping row whenever the viewport permits it. */
 .rc-import-connection-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
 }
 
 /* Missing profile labels may wrap without widening the popup. */
 .rc-import-connection-name {
-    flex: 1;
-    min-width: 0;
-    overflow-wrap: anywhere;
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* Cap connection pickers while preserving their content-based size. */
 .rc-import-connection-select {
-    flex: 0 1 auto;
-    width: auto;
-    max-width: 60%;
-    min-width: 0;
-    margin: 0;
-    padding: 4px 6px;
-    font-size: 12px;
+  flex: 0 1 auto;
+  width: auto;
+  max-width: 60%;
+  min-width: 0;
+  margin: 0;
+  padding: 4px 6px;
+  font-size: 12px;
 }
 
 /* State precisely how many presets the final Import action will change. */
 .rc-import-summary {
-    margin: 0;
-    font-size: 11px;
-    text-align: center;
+  margin: 0;
+  font-size: 11px;
+  text-align: center;
 }
 
 /* Make replacement names visible before the user commits the import. */
 .rc-import-replacements {
-    margin: 0;
-    font-size: 11px;
-    font-weight: 600;
-    overflow-wrap: anywhere;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
-@media (orientation: portrait),
-(max-width: 600px) {
-
-    /* Preserve Julia's 85vh mobile safety limit for all new native dialogs. */
-    dialog.rc-tools-dialog {
-        max-height: 85vh;
-    }
+@media (orientation: portrait), (max-width: 600px) {
+  /* Preserve Julia's 85vh mobile safety limit for all new native dialogs. */
+  dialog.rc-tools-dialog {
+    max-height: 85vh;
+  }
 }
 
 @media (max-width: 600px) {
+  /* Give the editor title and Close their own first row on narrow screens. */
+  .rc-pe-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0px 8px;
+    padding: 15px;
+  }
 
-    /* Give the editor title and Close their own first row on narrow screens. */
-    .rc-pe-header {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: start;
-        gap: 0px 8px;
-        padding: 15px;
-    }
+  /* Keep the editor title compact and allow wrapping on very narrow screens. */
+  .rc-pe-title {
+    grid-row: 1;
+    grid-column: 1;
+    font-size: 14px;
+    white-space: normal;
+  }
 
-    /* Keep the editor title compact and allow wrapping on very narrow screens. */
-    .rc-pe-title {
-        grid-row: 1;
-        grid-column: 1;
-        font-size: 14px;
-        white-space: normal;
-    }
+  /* Anchor Close beside the title instead of beside the pass name. */
+  #rc_pe_close {
+    grid-row: 1;
+    grid-column: 2;
+    padding: 3px 6px;
+    transform: translateY(-5px);
+  }
 
-    /* Anchor Close beside the title instead of beside the pass name. */
-    #rc_pe_close {
-        grid-row: 1;
-        grid-column: 2;
-        padding: 3px 6px;
-        transform: translateY(-5px);
-    }
+  /* The slot owns a second row; its measured field remains content-sized. */
+  #rc_pe_name_slot {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
 
-    /* The slot owns a second row; its measured field remains content-sized. */
-    #rc_pe_name_slot {
-        grid-row: 2;
-        grid-column: 1 / -1;
-        min-width: 0;
-    }
+  /* Show readable comparison tabs instead of squeezing two prompt columns. */
+  .rc-import-preview-tabs {
+    display: flex;
+  }
 
-    /* Show readable comparison tabs instead of squeezing two prompt columns. */
-    .rc-import-preview-tabs {
-        display: flex;
-    }
+  /* Let the selected preset comparison occupy the available narrow space. */
+  .rc-import-preview-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
-    /* Let the selected preset comparison occupy the available narrow space. */
-    .rc-import-preview-columns {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    /* Hide only the inactive preview on mobile, retaining both on desktop. */
-    .rc-import-preview-side[data-preview-active="false"] {
-        display: none;
-    }
+  /* Hide only the inactive preview on mobile, retaining both on desktop. */
+  .rc-import-preview-side[data-preview-active="false"] {
+    display: none;
+  }
 }
 
 /* ===== Preset Manager Modal Items ===== */
 
 .rc-pm-item {
-    display: flex;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--SmartThemeBorderColor, #555);
-    border-radius: 7px;
-    padding: 3px 10px;
-    gap: 10px;
-    transition: background 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--SmartThemeBorderColor, #555);
+  border-radius: 7px;
+  padding: 3px 10px;
+  gap: 10px;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
 .rc-pm-item:hover {
-    background:  rgba(0, 0, 0, 0.5);
-    border-color: var(--SmartThemeUnderlineColor);
+  background: rgba(0, 0, 0, 0.5);
+  border-color: var(--SmartThemeUnderlineColor);
 }
 
 .rc-pm-drag {
-    cursor: grab;
-    color: var(--SmartThemeBorderColor);
-    flex-shrink: 0;
-    transition: color 0.15s;
+  cursor: grab;
+  color: var(--SmartThemeBorderColor);
+  flex-shrink: 0;
+  transition: color 0.15s;
 }
 
 .rc-pm-item:hover .rc-pm-drag {
-    color: var(--SmartThemeUnderlineColor);
+  color: var(--SmartThemeUnderlineColor);
 }
 
 .rc-pm-name {
-    flex: 1;
-    font-size: 0.95em;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 60px;
-    color: var(--SmartThemeBodyColor, #eee);
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  flex: 1;
+  font-size: 0.95em;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  color: var(--SmartThemeBodyColor, #eee);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .rc-pm-name:hover {
-    color: var(--SmartThemeUnderlineColor);
+  color: var(--SmartThemeUnderlineColor);
 }
 
 .rc-pm-active-tag {
-    font-size: 0.55em;
-    background: rgba(50, 190, 100, 0.18);
-    color: #88e8a0;
-    padding: 2px 7px;
-    border-radius: 4px;
-    border: 1px solid rgba(50, 190, 100, 0.3);
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    flex-shrink: 0;
-    align-self: center;
+  font-size: 0.55em;
+  background: rgba(50, 190, 100, 0.18);
+  color: #88e8a0;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid rgba(50, 190, 100, 0.3);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+  align-self: center;
 }
 
 .rc-pm-actions {
-    display: flex;
-    gap: 5px;
-    flex-shrink: 0;
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
 }
 
 /* ===== Progress Bar ===== */
 
 #recast_progress_bar {
-    position: fixed;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--SmartThemeBlurTintColor, rgba(28, 28, 38, 0.92));
-    z-index: 10000;
-    padding: 12px 22px;
-    border-radius: 10px;
-    border: 1px solid var(--SmartThemeBorderColor, #444);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04);
-    min-width: 300px;
-    text-align: center;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--SmartThemeBlurTintColor, rgba(28, 28, 38, 0.92));
+  z-index: 10000;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: 1px solid var(--SmartThemeBorderColor, #444);
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  min-width: 300px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 #recast_progress_fill {
-    height: 100%;
-    border-radius: 4px;
-    background: linear-gradient(90deg,
-            #4a90e2 0%,
-            #a04ae2 33%,
-            #4ae2c0 66%,
-            #4a90e2 100%);
-    background-size: 200% 100%;
-    transition: width 0.35s ease;
-    animation: recast-gradient-shift 2.4s linear infinite;
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    #4a90e2 0%,
+    #a04ae2 33%,
+    #4ae2c0 66%,
+    #4a90e2 100%
+  );
+  background-size: 200% 100%;
+  transition: width 0.35s ease;
+  animation: recast-gradient-shift 2.4s linear infinite;
 }
 
 @keyframes recast-gradient-shift {
-    0% {
-        background-position: 0% 50%;
-    }
+  0% {
+    background-position: 0% 50%;
+  }
 
-    100% {
-        background-position: 200% 50%;
-    }
+  100% {
+    background-position: 200% 50%;
+  }
 }
 
 /* ===== Input Area Processing Indicator ===== */
 
 /* Ensure the form wrapper can anchor ::before */
 #form_sheld {
-    position: relative;
+  position: relative;
 }
 
 /* Animated gradient bar that runs across the top of the input box */
 #form_sheld.recast-input-active::before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg,
-            #4a90e2 0%,
-            #a04ae2 33%,
-            #4ae2c0 66%,
-            #4a90e2 100%);
-    background-size: 200% 100%;
-    border-radius: 10px;
-    filter: brightness(1.2);
-    animation: recast-underline-sweep 1.8s linear infinite;
-    pointer-events: none;
-    z-index: 1000;
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    #4a90e2 0%,
+    #a04ae2 33%,
+    #4ae2c0 66%,
+    #4a90e2 100%
+  );
+  background-size: 200% 100%;
+  border-radius: 10px;
+  filter: brightness(1.2);
+  animation: recast-underline-sweep 1.8s linear infinite;
+  pointer-events: none;
+  z-index: 1000;
 }
 
 /* Soft glow emanating downward from the bar into the input area */
 #form_sheld.recast-input-active::after {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 0;
-    right: 0;
-    height: 60px;
-    background: linear-gradient(180deg,
-            rgba(100, 80, 220, 0.1) 0%,
-            transparent 100%);
-    background-size: 200% 100%;
-    animation: recast-underline-sweep 2.4s linear infinite reverse;
-    pointer-events: none;
-    z-index: 999;
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(
+    180deg,
+    rgba(100, 80, 220, 0.1) 0%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: recast-underline-sweep 2.4s linear infinite reverse;
+  pointer-events: none;
+  z-index: 999;
 }
 
 @keyframes recast-underline-sweep {
-    0% {
-        background-position: 100% 50%;
-    }
+  0% {
+    background-position: 100% 50%;
+  }
 
-    100% {
-        background-position: -100% 50%;
-    }
+  100% {
+    background-position: -100% 50%;
+  }
 }
 
 /* Styles for the Stop button of the progress modal. Resizes the button to a smaller square and adjusts its position */
 button#recast_stop_pipeline {
-    padding-bottom: unset !important;
-    min-height: 0;
-    min-width: 0;
-    height: 22px;
-    width: 22px;
-    right: -10px !important;
+  padding-bottom: unset !important;
+  min-height: 0;
+  min-width: 0;
+  height: 22px;
+  width: 22px;
+  right: -10px !important;
 }
 
 /* Resizes the icon inside the Stop button */
 button#recast_stop_pipeline > i {
-    font-size: 12px;
+  font-size: 12px;
 }
